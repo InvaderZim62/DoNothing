@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  DoNothingViewController.swift
 //  DoNothing
 //
 //  Created by Phil Stern on 5/31/19.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class DoNothingViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
