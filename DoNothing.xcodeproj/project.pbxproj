@@ -38,6 +38,7 @@
 		4AB29BF822A1ADE400D1B9C0 = {
 			isa = PBXGroup;
 			children = (
+				4AB29C0822A1ADE500D1B9C0 /* Main.storyboard */,
 				4AB29C0322A1ADE500D1B9C0 /* DoNothing */,
 				4AB29C0222A1ADE500D1B9C0 /* Products */,
 			);
@@ -54,14 +55,21 @@
 		4AB29C0322A1ADE500D1B9C0 /* DoNothing */ = {
 			isa = PBXGroup;
 			children = (
-				4AB29C0422A1ADE500D1B9C0 /* AppDelegate.swift */,
 				4AB29C0622A1ADE500D1B9C0 /* ViewController.swift */,
-				4AB29C0822A1ADE500D1B9C0 /* Main.storyboard */,
+				4AB29C1622A1AE1E00D1B9C0 /* Supporting Files */,
+			);
+			path = DoNothing;
+			sourceTree = "<group>";
+		};
+		4AB29C1622A1AE1E00D1B9C0 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4AB29C0422A1ADE500D1B9C0 /* AppDelegate.swift */,
 				4AB29C0B22A1ADF900D1B9C0 /* Assets.xcassets */,
 				4AB29C0D22A1ADF900D1B9C0 /* LaunchScreen.storyboard */,
 				4AB29C1022A1ADF900D1B9C0 /* Info.plist */,
 			);
-			path = DoNothing;
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -284,7 +292,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 65Z9KA7SHC;
-				INFOPLIST_FILE = DoNothing/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/DoNothing/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -302,7 +310,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 65Z9KA7SHC;
-				INFOPLIST_FILE = DoNothing/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/DoNothing/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
