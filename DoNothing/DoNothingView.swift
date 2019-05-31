@@ -12,16 +12,18 @@ struct Dimension {
     static let abLength = 60.0
     static let bhLength = 80.0
     static let pivotRadius = 4.0
+    static let handleRadius = 6.0
     static let sliderWidth = 14.0
     static let sliderLength = 60.0
     static let boxSize = 160.0
     static let boxCornerRadius = 0.0
+    static let barWidth = 10.0
 }
 
 class DoNothingView: UIView {
 
     private var firstTouchAngle = 0.0
-    private var rotate = 0.0 { didSet { setNeedsDisplay() } }  // rotation angle in radians
+    private var rotate = -1.05 { didSet { setNeedsDisplay() } }  // bar rotation angle in radians
 
     private lazy var viewCenter = convert(center, from: superview)
 
@@ -126,14 +128,14 @@ class DoNothingView: UIView {
         let barOutline = UIBezierPath()
         barOutline.move(to: pivotA)
         barOutline.addLine(to: pivotH)
-        barOutline.lineWidth = 8
+        barOutline.lineWidth = CGFloat(Dimension.barWidth)
         barOutline.stroke()
 
         UIColor.brown.setStroke()
         let bar = UIBezierPath()
         bar.move(to: pivotA)
         bar.addLine(to: pivotH)
-        bar.lineWidth = 6
+        bar.lineWidth = CGFloat(Dimension.barWidth - 2)
         bar.stroke()
 
         // draw pivots and handle
@@ -148,7 +150,7 @@ class DoNothingView: UIView {
                                    endAngle: CGFloat(2.0 * Double.pi),
                                    clockwise: true)
         let circleH = UIBezierPath(arcCenter: pivotH,
-                                   radius: CGFloat(Dimension.pivotRadius),
+                                   radius: CGFloat(Dimension.handleRadius),
                                    startAngle: 0.0,
                                    endAngle: CGFloat(2.0 * Double.pi),
                                    clockwise: true)
