@@ -24,11 +24,12 @@ struct Dimensions {
 class DoNothingView: UIView {
 
     private var firstTouchAngle = 0.0
-    private var rotate = -1.05 { didSet { setNeedsDisplay() } }  // bar rotation angle in radians
+    private var barAngle = -1.05 { didSet { setNeedsDisplay() } }  // 0 to right, positive clockwise in radians
 
     private lazy var viewCenter = convert(center, from: superview)
 
-    override func layoutSubviews() {  // called if bounds change
+    // called if bounds change
+    override func layoutSubviews() {
         viewCenter = convert(center, from: superview)
         setNeedsDisplay()
     }
@@ -37,8 +38,8 @@ class DoNothingView: UIView {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             let firstTouch = touch.location(in: self)
-            firstTouchAngle = atan2(Double(firstTouch.y - viewCenter.y),  // 0 to right, positive clockwise
-                                    Double(firstTouch.x - viewCenter.x)) - rotate
+            firstTouchAngle = atan2(Double(firstTouch.y - viewCenter.y),
+                                    Double(firstTouch.x - viewCenter.x)) - barAngle
         }
     }
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -46,7 +47,7 @@ class DoNothingView: UIView {
             let currentTouch = touch.location(in: self)
             let currentTouchAngle = atan2(Double(currentTouch.y - viewCenter.y),
                                           Double(currentTouch.x - viewCenter.x))
-            rotate = currentTouchAngle - firstTouchAngle
+            barAngle = currentTouchAngle - firstTouchAngle
         }
     }
     
@@ -77,11 +78,11 @@ class DoNothingView: UIView {
 
         // compute pivot and handle locations
         let pivotA = CGPoint(x: Double(viewCenter.x),
-                             y: Double(viewCenter.y) - Dimensions.abLength * sin(rotate))
-        let pivotB = CGPoint(x: Double(viewCenter.x) + Dimensions.abLength * cos(rotate),
+                             y: Double(viewCenter.y) - Dimensions.abLength * sin(barAngle))
+        let pivotB = CGPoint(x: Double(viewCenter.x) + Dimensions.abLength * cos(barAngle),
                              y: Double(viewCenter.y))
-        let pivotH = CGPoint(x: Double(pivotB.x) + Dimensions.bhLength * cos(rotate),
-                             y: Double(pivotB.y) + Dimensions.bhLength * sin(rotate))
+        let pivotH = CGPoint(x: Double(pivotB.x) + Dimensions.bhLength * cos(barAngle),
+                             y: Double(pivotB.y) + Dimensions.bhLength * sin(barAngle))
         
         // draw sliders at pivots
         let originSliderA = CGPoint(x: Double(pivotA.x) - Dimensions.sliderWidth / 2.0,
