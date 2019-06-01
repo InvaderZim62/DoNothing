@@ -33,11 +33,11 @@ class DoNothingView: UIView {
         setNeedsDisplay()
     }
     
-    // use these next two methods to allow user to rotate wheel view
+    // use these next two methods to allow user to rotate bar
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             let firstTouch = touch.location(in: self)
-            firstTouchAngle = atan2(Double(firstTouch.y - viewCenter.y),  // 0 to right, pos CW
+            firstTouchAngle = atan2(Double(firstTouch.y - viewCenter.y),  // 0 to right, positive clockwise
                                     Double(firstTouch.x - viewCenter.x)) - rotate
         }
     }
