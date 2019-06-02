@@ -13,7 +13,7 @@ class DoNothingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 14)!], for: .normal)
+        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 18)!], for: .normal)
     }
 
 }
