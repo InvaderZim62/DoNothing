@@ -51,6 +51,24 @@ class DoNothingView: UIView {
         }
     }
     
+    private func drawSlider(at center: CGPoint, rotatedBy angle: Double) {
+        let sizeSlider = CGSize(width: Dimensions.sliderLength, height: Dimensions.sliderWidth)
+        let originSlider = CGPoint(x: Double(center.x) - Dimensions.sliderLength / 2.0,  // origin is top left corner
+            y: Double(center.y) - Dimensions.sliderWidth / 2.0)
+        let slider = UIBezierPath(roundedRect: CGRect(origin: originSlider, size: sizeSlider),
+                                  cornerRadius: CGFloat(Dimensions.sliderCornerRadius))
+        
+        // rotate (move to view origin, rotate about view origin, move back out)
+        slider.apply(CGAffineTransform(translationX: center.x, y: center.y).inverted())
+        slider.apply(CGAffineTransform(rotationAngle: CGFloat(angle)))
+        slider.apply(CGAffineTransform(translationX: center.x, y: center.y))
+        
+        UIColor.brown.setFill()
+        slider.lineWidth = 2
+        slider.stroke()
+        slider.fill()
+    }
+
     private func drawCornerSquare(at origin: CGPoint) {
         let size = (Dimensions.boxSize - Dimensions.sliderWidth) / 2.0
         let squareSize = CGSize(width: size, height: size)
@@ -84,26 +102,9 @@ class DoNothingView: UIView {
         let pivotH = CGPoint(x: Double(pivotB.x) + Dimensions.bhLength * cos(barAngle),
                              y: Double(pivotB.y) + Dimensions.bhLength * sin(barAngle))
         
-        // draw sliders at pivots
-        let originSliderA = CGPoint(x: Double(pivotA.x) - Dimensions.sliderWidth / 2.0,
-                                    y: Double(pivotA.y) - Dimensions.sliderLength / 2.0)
-        let sizeSliderA = CGSize(width: Dimensions.sliderWidth, height: Dimensions.sliderLength)
-        let sliderA = UIBezierPath(roundedRect: CGRect(origin: originSliderA, size: sizeSliderA),
-                                   cornerRadius: CGFloat(Dimensions.sliderCornerRadius))
-        
-        let originSliderB = CGPoint(x: Double(pivotB.x) - Dimensions.sliderLength / 2.0,
-                                    y: Double(pivotB.y) - Dimensions.sliderWidth / 2.0)
-        let sizeSliderB = CGSize(width: Dimensions.sliderLength, height: Dimensions.sliderWidth)
-        let sliderB = UIBezierPath(roundedRect: CGRect(origin: originSliderB, size: sizeSliderB),
-                                   cornerRadius: CGFloat(Dimensions.sliderCornerRadius))
-        
-        UIColor.brown.setFill()
-        sliderA.lineWidth = 2
-        sliderA.stroke()
-        sliderA.fill()
-        sliderB.lineWidth = 2
-        sliderB.stroke()
-        sliderB.fill()
+        // draw sliders
+        drawSlider(at: pivotA, rotatedBy: 90.0 * Double.pi / 180.0)
+        drawSlider(at: pivotB, rotatedBy: 0.0)
         
         // draw four corner squares
         let origin1 = CGPoint(x: Double(viewCenter.x) - Dimensions.boxSize / 2.0,
