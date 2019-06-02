@@ -1,61 +1,29 @@
 //
-//  DoNothingView.swift
+//  TwoSliderView.swift
 //  DoNothing
 //
-//  Created by Phil Stern on 5/31/19.
+//  Created by Phil Stern on 6/2/19.
 //  Copyright © 2019 Phil Stern. All rights reserved.
 //
 
 import UIKit
 
-struct Dim2 {
-    static let abLength = 60.0
-    static let bhLength = 80.0
-    static let pivotRadius = 4.0
-    static let handleRadius = 6.0
-    static let sliderWidth = 14.0
-    static let sliderLength = 60.0
-    static let boxSize = 160.0
-    static let boxCornerRadius = 0.0
-    static let sliderCornerRadius = 4.0
-    static let barWidth = 10.0
-}
+class TwoSliderView: SliderView {
 
-class DoNothingView: UIView {
-
-    private var firstTouchAngle = 0.0
-    private var barAngle = -1.05 { didSet { setNeedsDisplay() } }  // 0 to right, positive clockwise in radians
-
-    private lazy var viewCenter = convert(center, from: superview)
-    private lazy var viewCenterX = Double(viewCenter.x)
-    private lazy var viewCenterY = Double(viewCenter.y)
-    
-    // called if bounds change
-    override func layoutSubviews() {
-        viewCenter = convert(center, from: superview)
-        viewCenterX = Double(viewCenter.x)
-        viewCenterY = Double(viewCenter.y)
-        setNeedsDisplay()
-    }
-
-    // use these next two methods to allow user to rotate bar
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let touch = touches.first {
-            let firstTouch = touch.location(in: self)
-            firstTouchAngle = atan2(Double(firstTouch.y - viewCenter.y),
-                                    Double(firstTouch.x - viewCenter.x)) - barAngle
-        }
-    }
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let touch = touches.first {
-            let currentTouch = touch.location(in: self)
-            let currentTouchAngle = atan2(Double(currentTouch.y - viewCenter.y),
-                                          Double(currentTouch.x - viewCenter.x))
-            barAngle = currentTouchAngle - firstTouchAngle
-        }
+    struct Dim2 {
+        static let abLength = 60.0
+        static let bhLength = 80.0
+        static let pivotRadius = 4.0
+        static let handleRadius = 6.0
+        static let sliderWidth = 14.0
+        static let sliderLength = 60.0
+        static let boxSize = 160.0
+        static let boxCornerRadius = 0.0
+        static let sliderCornerRadius = 4.0
+        static let barWidth = 10.0
     }
     
-    private func drawSlider(at center: CGPoint, rotatedBy angle: Double) {
+    func drawSlider(at center: CGPoint, rotatedBy angle: Double) {
         let sizeSlider = CGSize(width: Dim2.sliderLength, height: Dim2.sliderWidth)
         let originSlider = CGPoint(x: Double(center.x) - Dim2.sliderLength / 2.0,  // origin is top left corner
             y: Double(center.y) - Dim2.sliderWidth / 2.0)
@@ -87,7 +55,7 @@ class DoNothingView: UIView {
         square.stroke()
         square.fill()
     }
-
+    
     override func draw(_ rect: CGRect) {
         // draw box around whole game
         let boxOrigin = CGPoint(x: viewCenterX - Dim2.boxSize / 2.0,
@@ -97,7 +65,7 @@ class DoNothingView: UIView {
                                cornerRadius: CGFloat(Dim2.boxCornerRadius))
         UIColor.gray.setFill()
         box.fill()
-
+        
         // compute pivot and handle locations
         let pivotA = CGPoint(x: viewCenterX,
                              y: viewCenterY - Dim2.abLength * sin(barAngle))
@@ -107,7 +75,7 @@ class DoNothingView: UIView {
                              y: Double(pivotB.y) + Dim2.bhLength * sin(barAngle))
         
         // draw sliders
-        drawSlider(at: pivotA, rotatedBy: 90.0 * Double.pi / 180.0)
+        drawSlider(at: pivotA, rotatedBy: ninty)
         drawSlider(at: pivotB, rotatedBy: 0.0)
         
         // draw four corner squares
@@ -124,7 +92,7 @@ class DoNothingView: UIView {
         drawCornerSquare(at: origin2)
         drawCornerSquare(at: origin3)
         drawCornerSquare(at: origin4)
-
+        
         // draw bar
         UIColor.black.setStroke()
         let barOutline = UIBezierPath()
@@ -132,14 +100,14 @@ class DoNothingView: UIView {
         barOutline.addLine(to: pivotH)
         barOutline.lineWidth = CGFloat(Dim2.barWidth)
         barOutline.stroke()
-
+        
         UIColor.brown.setStroke()
         let bar = UIBezierPath()
         bar.move(to: pivotA)
         bar.addLine(to: pivotH)
         bar.lineWidth = CGFloat(Dim2.barWidth - 2)
         bar.stroke()
-
+        
         // draw pivots and handle
         let circleA = UIBezierPath(arcCenter: pivotA,
                                    radius: CGFloat(Dim2.pivotRadius),
