@@ -13,7 +13,7 @@ struct Dim3 {
     static let pivotRadius = 4.0
     static let handleRadius = 6.0
     static let sliderWidth = 14.0
-    static let sliderLength = 50.0
+    static let sliderLength = 55.0
     static let sliderCornerRadius = 4.0
     static let boxRadius = 100.0
     static let barWidth = 10.0
@@ -23,17 +23,19 @@ class ThreeSliderView: UIView {
     
     private let thirty = 30.0 * Double.pi / 180.0  // radians
     private let sixty = 60.0 * Double.pi / 180.0
-    private lazy var viewX = Double(viewCenter.x)
-    private lazy var viewY = Double(viewCenter.y)
 
     private var firstTouchAngle = 0.0
     private var barAngle = -1.05 { didSet { setNeedsDisplay() } }  // 0 to right, positive clockwise in radians
 
     private lazy var viewCenter = convert(center, from: superview)
-    
+    private lazy var viewCenterX = Double(viewCenter.x)
+    private lazy var viewCenterY = Double(viewCenter.y)
+
     // called if bounds change
     override func layoutSubviews() {
         viewCenter = convert(center, from: superview)
+        viewCenterX = Double(viewCenter.x)
+        viewCenterY = Double(viewCenter.y)
         setNeedsDisplay()
     }
     
@@ -76,15 +78,15 @@ class ThreeSliderView: UIView {
         let pieLength = Dim3.boxRadius - 1.155 * Dim3.sliderWidth  // = 1 / (2 * sin(thirty) * cos(thirty))
         
         let pie = UIBezierPath()
-        pie.move(to: CGPoint(x: viewX, y: viewY))
-        pie.addLine(to: CGPoint(x: viewX + pieLength * cos(thirty), y: viewY + pieLength * sin(thirty)))
-        pie.addLine(to: CGPoint(x: viewX + pieLength * cos(thirty), y: viewY + pieLength * sin(-thirty)))
-        pie.addLine(to: CGPoint(x: viewX, y: viewY))
+        pie.move(to: CGPoint(x: viewCenterX, y: viewCenterY))
+        pie.addLine(to: CGPoint(x: viewCenterX + pieLength * cos(thirty), y: viewCenterY + pieLength * sin(thirty)))
+        pie.addLine(to: CGPoint(x: viewCenterX + pieLength * cos(thirty), y: viewCenterY + pieLength * sin(-thirty)))
+        pie.addLine(to: CGPoint(x: viewCenterX, y: viewCenterY))
 
-        pie.apply(CGAffineTransform(translationX: CGFloat(viewX), y: CGFloat(viewY)).inverted())
+        pie.apply(CGAffineTransform(translationX: CGFloat(viewCenterX), y: CGFloat(viewCenterY)).inverted())
         pie.apply(CGAffineTransform(rotationAngle: CGFloat(angle)))
-        pie.apply(CGAffineTransform(translationX: CGFloat(viewX + Dim3.sliderWidth * cos(angle)),
-                                               y: CGFloat(viewY + Dim3.sliderWidth * sin(angle))))
+        pie.apply(CGAffineTransform(translationX: CGFloat(viewCenterX + Dim3.sliderWidth * cos(angle)),
+                                               y: CGFloat(viewCenterY + Dim3.sliderWidth * sin(angle))))
         UIColor.black.setStroke()
         UIColor.lightGray.setFill()
         
@@ -96,18 +98,18 @@ class ThreeSliderView: UIView {
     override func draw(_ rect: CGRect) {
         // draw box around whole game
         let box = UIBezierPath()
-        box.move(to: CGPoint(x: viewX + Dim3.boxRadius, y: viewY))
+        box.move(to: CGPoint(x: viewCenterX + Dim3.boxRadius, y: viewCenterY))
         for i in 1...5 {
             let angle = Double(i) * sixty
-            box.addLine(to: CGPoint(x: viewX + Dim3.boxRadius * cos(angle),
-                                    y: viewY - Dim3.boxRadius * sin(angle)))
+            box.addLine(to: CGPoint(x: viewCenterX + Dim3.boxRadius * cos(angle),
+                                    y: viewCenterY - Dim3.boxRadius * sin(angle)))
         }
         UIColor.gray.setFill()
         box.fill()
         
         // compute pivot and handle locations
-        let pivotC = CGPoint(x: viewX + Dim3.abLength * (cos(sixty - barAngle) / tan(sixty) + sin(sixty - barAngle)),
-                             y: viewY)
+        let pivotC = CGPoint(x: viewCenterX + Dim3.abLength * (cos(sixty - barAngle) / tan(sixty) + sin(sixty - barAngle)),
+                             y: viewCenterY)
         let pivotA = CGPoint(x: Double(pivotC.x) - Dim3.abLength * cos(barAngle - thirty),
                              y: Double(pivotC.y) - Dim3.abLength * sin(barAngle - thirty))
         let pivotB = CGPoint(x: Double(pivotC.x) - Dim3.abLength * sin(sixty - barAngle),

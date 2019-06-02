@@ -27,13 +27,17 @@ class DoNothingView: UIView {
     private var barAngle = -1.05 { didSet { setNeedsDisplay() } }  // 0 to right, positive clockwise in radians
 
     private lazy var viewCenter = convert(center, from: superview)
-
+    private lazy var viewCenterX = Double(viewCenter.x)
+    private lazy var viewCenterY = Double(viewCenter.y)
+    
     // called if bounds change
     override func layoutSubviews() {
         viewCenter = convert(center, from: superview)
+        viewCenterX = Double(viewCenter.x)
+        viewCenterY = Double(viewCenter.y)
         setNeedsDisplay()
     }
-    
+
     // use these next two methods to allow user to rotate bar
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
@@ -86,8 +90,8 @@ class DoNothingView: UIView {
 
     override func draw(_ rect: CGRect) {
         // draw box around whole game
-        let boxOrigin = CGPoint(x: Double(viewCenter.x) - Dim2.boxSize / 2.0,
-                                y: Double(viewCenter.y) - Dim2.boxSize / 2.0)
+        let boxOrigin = CGPoint(x: viewCenterX - Dim2.boxSize / 2.0,
+                                y: viewCenterY - Dim2.boxSize / 2.0)
         let boxSize = CGSize(width: Dim2.boxSize, height: Dim2.boxSize)
         let box = UIBezierPath(roundedRect: CGRect(origin: boxOrigin, size: boxSize),
                                cornerRadius: CGFloat(Dim2.boxCornerRadius))
@@ -95,10 +99,10 @@ class DoNothingView: UIView {
         box.fill()
 
         // compute pivot and handle locations
-        let pivotA = CGPoint(x: Double(viewCenter.x),
-                             y: Double(viewCenter.y) - Dim2.abLength * sin(barAngle))
-        let pivotB = CGPoint(x: Double(viewCenter.x) + Dim2.abLength * cos(barAngle),
-                             y: Double(viewCenter.y))
+        let pivotA = CGPoint(x: viewCenterX,
+                             y: viewCenterY - Dim2.abLength * sin(barAngle))
+        let pivotB = CGPoint(x: viewCenterX + Dim2.abLength * cos(barAngle),
+                             y: viewCenterY)
         let pivotH = CGPoint(x: Double(pivotB.x) + Dim2.bhLength * cos(barAngle),
                              y: Double(pivotB.y) + Dim2.bhLength * sin(barAngle))
         
@@ -107,14 +111,14 @@ class DoNothingView: UIView {
         drawSlider(at: pivotB, rotatedBy: 0.0)
         
         // draw four corner squares
-        let origin1 = CGPoint(x: Double(viewCenter.x) - Dim2.boxSize / 2.0,
-                              y: Double(viewCenter.y) - Dim2.boxSize / 2.0)
-        let origin2 = CGPoint(x: Double(viewCenter.x) + Dim2.sliderWidth / 2.0,
-                              y: Double(viewCenter.y) - Dim2.boxSize / 2.0)
-        let origin3 = CGPoint(x: Double(viewCenter.x) - Dim2.boxSize / 2.0,
-                              y: Double(viewCenter.y) + Dim2.sliderWidth / 2.0)
-        let origin4 = CGPoint(x: Double(viewCenter.x) + Dim2.sliderWidth / 2.0,
-                              y: Double(viewCenter.y) + Dim2.sliderWidth / 2.0)
+        let origin1 = CGPoint(x: viewCenterX - Dim2.boxSize / 2.0,
+                              y: viewCenterY - Dim2.boxSize / 2.0)
+        let origin2 = CGPoint(x: viewCenterX + Dim2.sliderWidth / 2.0,
+                              y: viewCenterY - Dim2.boxSize / 2.0)
+        let origin3 = CGPoint(x: viewCenterX - Dim2.boxSize / 2.0,
+                              y: viewCenterY + Dim2.sliderWidth / 2.0)
+        let origin4 = CGPoint(x: viewCenterX + Dim2.sliderWidth / 2.0,
+                              y: viewCenterY + Dim2.sliderWidth / 2.0)
         
         drawCornerSquare(at: origin1)
         drawCornerSquare(at: origin2)
