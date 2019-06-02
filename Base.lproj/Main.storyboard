@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="NVM-R7-uaE">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Do Nothing View Controller-->
+        <!--Two Slider-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="DoNothingViewController" customModule="DoNothing" customModuleProvider="target" sceneMemberID="viewController">
@@ -18,8 +18,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="msw-gj-uXr" customClass="ThreeSliderView" customModule="DoNothing" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="msw-gj-uXr" customClass="TwoSliderView" customModule="DoNothing" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="20" width="375" height="598"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
@@ -32,10 +32,57 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Two Slider" id="jD0-4r-kBu"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="992.79999999999995" y="26.53673163418291"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="m8W-OV-C1U">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="NVM-R7-uaE" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="jY7-Wo-4B9">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="EsK-bh-r2H"/>
+                        <segue destination="nvV-sm-332" kind="relationship" relationship="viewControllers" id="5r7-u3-Mdr"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ddb-zj-ESt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
             <point key="canvasLocation" x="53.600000000000001" y="26.53673163418291"/>
+        </scene>
+        <!--Three Slider-->
+        <scene sceneID="xBg-Hs-Ury">
+            <objects>
+                <viewController id="nvV-sm-332" customClass="DoNothingViewController" customModule="DoNothing" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="YZF-nW-9PU">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ssB-N0-pvt" customClass="ThreeSliderView" customModule="DoNothing" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="20" width="375" height="598"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.89448419629999998" green="0.92984821679999996" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="dnF-qJ-Bxg" firstAttribute="bottom" secondItem="ssB-N0-pvt" secondAttribute="bottom" id="GGZ-iq-QSc"/>
+                            <constraint firstItem="dnF-qJ-Bxg" firstAttribute="trailing" secondItem="ssB-N0-pvt" secondAttribute="trailing" id="SYi-Yt-hwr"/>
+                            <constraint firstItem="ssB-N0-pvt" firstAttribute="leading" secondItem="dnF-qJ-Bxg" secondAttribute="leading" id="q04-LU-3p5"/>
+                            <constraint firstItem="ssB-N0-pvt" firstAttribute="top" secondItem="dnF-qJ-Bxg" secondAttribute="top" id="s4N-3z-OrI"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="dnF-qJ-Bxg"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Three Slider" id="0UW-m7-WXj"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Xb5-B1-ov9" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="993" y="795"/>
         </scene>
     </scenes>
 </document>
