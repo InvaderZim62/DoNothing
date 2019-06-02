@@ -54,7 +54,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ddb-zj-ESt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="53.600000000000001" y="26.53673163418291"/>
+            <point key="canvasLocation" x="20" y="407"/>
         </scene>
         <!--Three Slider-->
         <scene sceneID="xBg-Hs-Ury">
