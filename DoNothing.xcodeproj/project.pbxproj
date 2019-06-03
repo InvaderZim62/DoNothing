@@ -15,6 +15,7 @@
 		4AB29C1822A1B03800D1B9C0 /* SliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB29C1722A1B03800D1B9C0 /* SliderView.swift */; };
 		4AF1BC6E22A4372500D3DF23 /* ThreeSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF1BC6D22A4372500D3DF23 /* ThreeSliderView.swift */; };
 		4AF1BC7022A46DF000D3DF23 /* TwoSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF1BC6F22A46DF000D3DF23 /* TwoSliderView.swift */; };
+		4AF1BC7222A49D7E00D3DF23 /* FourSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF1BC7122A49D7E00D3DF23 /* FourSliderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		4AB29C1722A1B03800D1B9C0 /* SliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderView.swift; sourceTree = "<group>"; };
 		4AF1BC6D22A4372500D3DF23 /* ThreeSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreeSliderView.swift; sourceTree = "<group>"; };
 		4AF1BC6F22A46DF000D3DF23 /* TwoSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoSliderView.swift; sourceTree = "<group>"; };
+		4AF1BC7122A49D7E00D3DF23 /* FourSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourSliderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +67,7 @@
 				4AB29C1722A1B03800D1B9C0 /* SliderView.swift */,
 				4AF1BC6F22A46DF000D3DF23 /* TwoSliderView.swift */,
 				4AF1BC6D22A4372500D3DF23 /* ThreeSliderView.swift */,
+				4AF1BC7122A49D7E00D3DF23 /* FourSliderView.swift */,
 				4AB29C1622A1AE1E00D1B9C0 /* Supporting Files */,
 			);
 			path = DoNothing;
@@ -155,6 +158,7 @@
 				4AB29C1822A1B03800D1B9C0 /* SliderView.swift in Sources */,
 				4AB29C0722A1ADE500D1B9C0 /* DoNothingViewController.swift in Sources */,
 				4AF1BC7022A46DF000D3DF23 /* TwoSliderView.swift in Sources */,
+				4AF1BC7222A49D7E00D3DF23 /* FourSliderView.swift in Sources */,
 				4AF1BC6E22A4372500D3DF23 /* ThreeSliderView.swift in Sources */,
 				4AB29C0522A1ADE500D1B9C0 /* AppDelegate.swift in Sources */,
 			);

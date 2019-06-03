@@ -20,8 +20,12 @@ struct Dim0 {
 class SliderView: UIView {
 
     let thirty = 30.0 * Double.pi / 180.0  // radians
+    let fortyFive = 45.0 * Double.pi / 180.0
+    let half45 = 45.0 / 2.0 * Double.pi / 180.0
     let sixty = 60.0 * Double.pi / 180.0
     let ninty = 90.0 * Double.pi / 180.0
+    let oneEighty = 180.0 * Double.pi / 180.0
+    let oneThirtyFive = 135.0 * Double.pi / 180.0
 
     var firstTouchAngle = 0.0
     var barAngle = -1.05 { didSet { setNeedsDisplay() } }  // 0 to right, positive clockwise in radians
@@ -55,6 +59,18 @@ class SliderView: UIView {
         }
     }
     
+    func drawGameBackingFor(numberOfSliders: Int, with radius: Double) {
+        let box = UIBezierPath()
+        box.move(to: CGPoint(x: viewCenterX + radius, y: viewCenterY))
+        for i in 1..<2*numberOfSliders {
+            let angle = Double(i) * oneEighty / Double(numberOfSliders)
+            box.addLine(to: CGPoint(x: viewCenterX + radius * cos(angle),
+                                    y: viewCenterY - radius * sin(angle)))
+        }
+        UIColor.gray.setFill()
+        box.fill()
+    }
+
     func drawSlider(of length: Double, at center: CGPoint, rotatedBy angle: Double) {
         let sizeSlider = CGSize(width: length, height: Dim0.sliderWidth)
         let originSlider = CGPoint(x: Double(center.x) - length / 2.0,  // origin is top left corner
