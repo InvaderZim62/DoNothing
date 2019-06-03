@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Two Slider-->
+        <!--Two Sliders-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="DoNothingViewController" customModule="DoNothing" customModuleProvider="target" sceneMemberID="viewController">
@@ -46,7 +46,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Two Slider" id="jD0-4r-kBu"/>
+                    <tabBarItem key="tabBarItem" title="Two Sliders" id="jD0-4r-kBu"/>
                     <connections>
                         <outlet property="handleButton" destination="v4M-Ck-sVO" id="vYh-US-SOs"/>
                         <outlet property="sliderView" destination="msw-gj-uXr" id="mRY-9M-IOH"/>
@@ -76,7 +76,7 @@
             </objects>
             <point key="canvasLocation" x="636" y="362"/>
         </scene>
-        <!--Three Slider-->
+        <!--Three Sliders-->
         <scene sceneID="xBg-Hs-Ury">
             <objects>
                 <viewController id="nvV-sm-332" customClass="DoNothingViewController" customModule="DoNothing" customModuleProvider="target" sceneMemberID="viewController">
@@ -112,7 +112,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="dnF-qJ-Bxg"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Three Slider" id="0UW-m7-WXj"/>
+                    <tabBarItem key="tabBarItem" title="Three Sliders" id="0UW-m7-WXj"/>
                     <connections>
                         <outlet property="handleButton" destination="oLl-GX-A7e" id="qdo-Qh-Ufp"/>
                         <outlet property="sliderView" destination="ssB-N0-pvt" id="4F3-qr-9iy"/>
@@ -122,7 +122,7 @@
             </objects>
             <point key="canvasLocation" x="636" y="1128"/>
         </scene>
-        <!--Four Slider-->
+        <!--Four Sliders-->
         <scene sceneID="veE-y9-y9t">
             <objects>
                 <viewController id="uEz-ll-VHl" customClass="DoNothingViewController" customModule="DoNothing" customModuleProvider="target" sceneMemberID="viewController">
@@ -158,7 +158,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="A9d-qx-i7y"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Four Slider" id="WgS-JZ-yCK"/>
+                    <tabBarItem key="tabBarItem" title="Four Sliders" id="WgS-JZ-yCK"/>
                     <connections>
                         <outlet property="handleButton" destination="k1v-GT-nxa" id="d2I-mH-Ij0"/>
                         <outlet property="sliderView" destination="gie-vT-SXi" id="C2c-Om-P1e"/>

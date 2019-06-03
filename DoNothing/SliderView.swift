@@ -8,15 +8,15 @@
 
 import UIKit
 
+protocol SliderViewDelegate: class {
+    func getHandleState() -> Bool  // get handle state (hide/show) from DoNothingViewController
+}
+
 struct Dim0 {
     static let pivotRadius = 4.0
     static let handleRadius = 6.0
     static let sliderCornerRadius = 4.0
     static let barWidth = 10.0
-}
-
-protocol SliderViewDelegate: class {
-    func getHandleState() -> Bool
 }
 
 class SliderView: UIView {

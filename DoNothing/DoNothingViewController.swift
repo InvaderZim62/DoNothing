@@ -10,39 +10,34 @@ import UIKit
 
 class DoNothingViewController: UIViewController {
 
-    var includeHandle = true {
-        didSet {
-            updateButtonTitle()
-        }
-    }
-    
-    private func updateButtonTitle() {
-        handleButton.setTitle(includeHandle ? "Hide Handle" : "Show Handle", for: .normal)
-    }
+    static var includeHandle = true  // static, so it's shared between tab views
 
     @IBOutlet weak var sliderView: SliderView!
-    
-    @IBOutlet weak var handleButton: UIButton! {
-        didSet {
-            updateButtonTitle()
-        }
-    }
+    @IBOutlet weak var handleButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         sliderView.delegate = self
-        
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 18)!], for: .normal)
+    }
+    
+    // called each time a new tab view is loaded
+    override func viewWillAppear(_ animated: Bool) {
+        updateButtonTitle()
     }
 
     @IBAction func pressedButton(_ sender: UIButton) {
-        includeHandle = !includeHandle
+        DoNothingViewController.includeHandle = !DoNothingViewController.includeHandle
+        updateButtonTitle()
+    }
+    
+    private func updateButtonTitle() {
+        handleButton.setTitle(DoNothingViewController.includeHandle ? "Hide Handle" : "Show Handle", for: .normal)
     }
 }
 
 extension DoNothingViewController: SliderViewDelegate {
     func getHandleState() -> Bool {
-        return includeHandle
+        return DoNothingViewController.includeHandle
     }
 }
