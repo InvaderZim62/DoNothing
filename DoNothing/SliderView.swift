@@ -15,9 +15,15 @@ struct Dim0 {
     static let barWidth = 10.0
 }
 
+protocol SliderViewDelegate: class {
+    func getHandleState() -> Bool
+}
+
 class SliderView: UIView {
     
-    let includeHandle = true
+    weak var delegate: SliderViewDelegate?
+    
+    var includeHandle = true
     
     var firstTouchAngle = 0.0
     var barAngle = -1.05 { didSet { setNeedsDisplay() } }  // 0 to right, positive clockwise in radians

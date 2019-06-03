@@ -19,6 +19,8 @@ class ThreeSliderView: SliderView {
     }
     
     override func draw(_ rect: CGRect) {
+        includeHandle = delegate?.getHandleState() ?? true
+
         drawGameBackingFor(numberOfSliders: 3, with: Dim3.boxRadius)
         
         // compute pivot and handle locations

@@ -35,6 +35,8 @@ class TwoSliderView: SliderView {
     }
     
     override func draw(_ rect: CGRect) {
+        includeHandle = delegate?.getHandleState() ?? true
+
         // draw box around whole game
         let boxOrigin = CGPoint(x: viewCenterX - Dim2.boxSize / 2.0,
                                 y: viewCenterY - Dim2.boxSize / 2.0)

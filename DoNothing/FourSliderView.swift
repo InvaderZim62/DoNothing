@@ -19,6 +19,8 @@ class FourSliderView: SliderView {
     }
     
     override func draw(_ rect: CGRect) {
+        includeHandle = delegate?.getHandleState() ?? true
+
         drawGameBackingFor(numberOfSliders: 4, with: Dim4.boxRadius)
         
         // compute pivot and handle locations

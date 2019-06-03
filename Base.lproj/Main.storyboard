@@ -20,19 +20,37 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="msw-gj-uXr" customClass="TwoSliderView" customModule="DoNothing" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="20" width="375" height="598"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v4M-Ck-sVO">
+                                        <rect key="frame" x="128.5" y="8" width="118" height="39"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                        <state key="normal" title="Hide Handle"/>
+                                        <connections>
+                                            <action selector="pressedButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4OA-A5-Sxf"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="v4M-Ck-sVO" firstAttribute="centerX" secondItem="msw-gj-uXr" secondAttribute="centerX" id="EJ5-Qa-1FP"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="0.89448419632175002" green="0.92984821682029584" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="msw-gj-uXr" secondAttribute="bottom" id="De3-11-sGg"/>
                             <constraint firstItem="msw-gj-uXr" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="FuS-lo-uJ8"/>
+                            <constraint firstItem="v4M-Ck-sVO" firstAttribute="top" secondItem="msw-gj-uXr" secondAttribute="top" constant="8" id="QGZ-tS-Mkh"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="msw-gj-uXr" secondAttribute="trailing" id="crR-O9-Rai"/>
                             <constraint firstItem="msw-gj-uXr" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="qdD-Fr-HG6"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Two Slider" id="jD0-4r-kBu"/>
+                    <connections>
+                        <outlet property="handleButton" destination="v4M-Ck-sVO" id="vYh-US-SOs"/>
+                        <outlet property="sliderView" destination="msw-gj-uXr" id="mRY-9M-IOH"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -44,6 +62,7 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="NVM-R7-uaE" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="jY7-Wo-4B9">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
@@ -67,7 +86,21 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ssB-N0-pvt" customClass="ThreeSliderView" customModule="DoNothing" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="20" width="375" height="598"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oLl-GX-A7e">
+                                        <rect key="frame" x="128.5" y="8" width="118" height="39"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                        <state key="normal" title="Hide Handle"/>
+                                        <connections>
+                                            <action selector="pressedButton:" destination="nvV-sm-332" eventType="touchUpInside" id="IED-XU-dy1"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="oLl-GX-A7e" firstAttribute="centerX" secondItem="ssB-N0-pvt" secondAttribute="centerX" id="P6n-z3-0bp"/>
+                                    <constraint firstItem="oLl-GX-A7e" firstAttribute="top" secondItem="ssB-N0-pvt" secondAttribute="top" constant="8" id="ijM-TR-Hi5"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="0.89448419629999998" green="0.92984821679999996" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -80,6 +113,10 @@
                         <viewLayoutGuide key="safeArea" id="dnF-qJ-Bxg"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Three Slider" id="0UW-m7-WXj"/>
+                    <connections>
+                        <outlet property="handleButton" destination="oLl-GX-A7e" id="qdo-Qh-Ufp"/>
+                        <outlet property="sliderView" destination="ssB-N0-pvt" id="4F3-qr-9iy"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xb5-B1-ov9" sceneMemberID="firstResponder"/>
             </objects>
@@ -95,7 +132,21 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gie-vT-SXi" customClass="FourSliderView" customModule="DoNothing" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="20" width="375" height="598"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k1v-GT-nxa">
+                                        <rect key="frame" x="128.5" y="8" width="118" height="39"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                        <state key="normal" title="Hide Handle"/>
+                                        <connections>
+                                            <action selector="pressedButton:" destination="uEz-ll-VHl" eventType="touchUpInside" id="Gzj-7V-ier"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="k1v-GT-nxa" firstAttribute="top" secondItem="gie-vT-SXi" secondAttribute="top" constant="8" id="JjS-bG-smu"/>
+                                    <constraint firstItem="k1v-GT-nxa" firstAttribute="centerX" secondItem="gie-vT-SXi" secondAttribute="centerX" id="Mmm-wn-r2L"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="0.89448419629999998" green="0.92984821679999996" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -108,6 +159,10 @@
                         <viewLayoutGuide key="safeArea" id="A9d-qx-i7y"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Four Slider" id="WgS-JZ-yCK"/>
+                    <connections>
+                        <outlet property="handleButton" destination="k1v-GT-nxa" id="d2I-mH-Ij0"/>
+                        <outlet property="sliderView" destination="gie-vT-SXi" id="C2c-Om-P1e"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9jY-k4-6iT" sceneMemberID="firstResponder"/>
             </objects>
