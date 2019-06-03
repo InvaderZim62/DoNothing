@@ -22,24 +22,24 @@ class ThreeSliderView: SliderView {
         drawGameBackingFor(numberOfSliders: 3, with: Dim3.boxRadius)
         
         // compute pivot and handle locations
-        let pivotA = CGPoint(x: viewCenterX + Dim3.abLength * (cos(sixty - barAngle) / tan(sixty) + sin(sixty - barAngle)),
+        let pivotA = CGPoint(x: viewCenterX + Dim3.abLength * (cos(60.rads - barAngle) / tan(60.rads) + sin(60.rads - barAngle)),
                              y: viewCenterY)
-        let pivotB = CGPoint(x: Double(pivotA.x) - Dim3.abLength * cos(barAngle - thirty),
-                             y: Double(pivotA.y) - Dim3.abLength * sin(barAngle - thirty))
-        let pivotC = CGPoint(x: Double(pivotA.x) - Dim3.abLength * sin(sixty - barAngle),
-                             y: Double(pivotA.y) - Dim3.abLength * cos(sixty - barAngle))
+        let pivotB = CGPoint(x: Double(pivotA.x) - Dim3.abLength * cos(barAngle - 30.rads),
+                             y: Double(pivotA.y) - Dim3.abLength * sin(barAngle - 30.rads))
+        let pivotC = CGPoint(x: Double(pivotA.x) - Dim3.abLength * sin(60.rads - barAngle),
+                             y: Double(pivotA.y) - Dim3.abLength * cos(60.rads - barAngle))
         let pivotH = CGPoint(x: Double(pivotA.x) + Dim3.handleLength * cos(barAngle),
                              y: Double(pivotA.y) + Dim3.handleLength * sin(barAngle))
         
         // draw sliders
         drawSliderOf(length: Dim3.sliderLength, andWidth: Dim3.sliderWidth, at: pivotA, rotatedBy: 0.0)
-        drawSliderOf(length: Dim3.sliderLength, andWidth: Dim3.sliderWidth, at: pivotB, rotatedBy: sixty)
-        drawSliderOf(length: Dim3.sliderLength, andWidth: Dim3.sliderWidth, at: pivotC, rotatedBy: -sixty)
+        drawSliderOf(length: Dim3.sliderLength, andWidth: Dim3.sliderWidth, at: pivotB, rotatedBy: 60.rads)
+        drawSliderOf(length: Dim3.sliderLength, andWidth: Dim3.sliderWidth, at: pivotC, rotatedBy: -60.rads)
 
         // draw six pie wedges
         for i in 0..<6 {
-            let angle = sixty * (0.5 + Double(i))
-            drawPieSectionWith(radius: Dim3.boxRadius, pointAngle: sixty, sliderWidth: Dim3.sliderWidth, rotatedBy: angle)
+            let angle = 60.rads * (0.5 + Double(i))
+            drawPieSectionWith(radius: Dim3.boxRadius, pointAngle: 60.rads, sliderWidth: Dim3.sliderWidth, rotatedBy: angle)
         }
         
         // draw bar (wide for black outline)

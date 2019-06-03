@@ -17,13 +17,6 @@ struct Dim0 {
 
 class SliderView: UIView {
 
-    let thirty = 30.0 * Double.pi / 180.0  // radians
-    let fortyFive = 45.0 * Double.pi / 180.0
-    let sixty = 60.0 * Double.pi / 180.0
-    let ninety = 90.0 * Double.pi / 180.0
-    let oneEighty = 180.0 * Double.pi / 180.0
-    let oneThirtyFive = 135.0 * Double.pi / 180.0
-
     var firstTouchAngle = 0.0
     var barAngle = -1.05 { didSet { setNeedsDisplay() } }  // 0 to right, positive clockwise in radians
 
@@ -60,7 +53,7 @@ class SliderView: UIView {
         let box = UIBezierPath()
         box.move(to: CGPoint(x: viewCenterX + radius, y: viewCenterY))
         for i in 1..<2*numberOfSliders {
-            let angle = Double(i) * oneEighty / Double(numberOfSliders)
+            let angle = Double(i) * 180.rads / Double(numberOfSliders)
             box.addLine(to: CGPoint(x: viewCenterX + radius * cos(angle),
                                     y: viewCenterY - radius * sin(angle)))
         }
@@ -106,5 +99,11 @@ class SliderView: UIView {
         pie.lineWidth = 2
         pie.stroke()
         pie.fill()
+    }
+}
+
+extension Double {
+    var rads: Double {
+        return self * Double.pi / 180.0
     }
 }

@@ -53,7 +53,7 @@ class TwoSliderView: SliderView {
                              y: Double(pivotB.y) + Dim2.handleLength * sin(barAngle))
         
         // draw sliders
-        drawSliderOf(length: Dim2.sliderLength, andWidth: Dim2.sliderWidth, at: pivotA, rotatedBy: ninety)
+        drawSliderOf(length: Dim2.sliderLength, andWidth: Dim2.sliderWidth, at: pivotA, rotatedBy: 90.rads)
         drawSliderOf(length: Dim2.sliderLength, andWidth: Dim2.sliderWidth, at: pivotB, rotatedBy: 0.0)
         
         // draw four corner squares
