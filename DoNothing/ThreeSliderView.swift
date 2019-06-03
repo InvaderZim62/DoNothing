@@ -49,7 +49,7 @@ class ThreeSliderView: SliderView {
         barOutline.addLine(to: pivotB)
         barOutline.addLine(to: pivotC)
         barOutline.addLine(to: pivotA)
-        barOutline.addLine(to: pivotH)
+        if includeHandle { barOutline.addLine(to: pivotH) }
         barOutline.lineWidth = CGFloat(Dim0.barWidth)
         barOutline.stroke()
 
@@ -60,7 +60,7 @@ class ThreeSliderView: SliderView {
         bar.addLine(to: pivotB)
         bar.addLine(to: pivotC)
         bar.addLine(to: pivotA)
-        bar.addLine(to: pivotH)
+        if includeHandle { bar.addLine(to: pivotH) }
         bar.lineWidth = CGFloat(Dim0.barWidth - 2)
         bar.stroke()
         
@@ -98,9 +98,11 @@ class ThreeSliderView: SliderView {
         circleC.stroke()
         circleC.fill()
 
-        UIColor.cyan.setFill()
-        circleH.lineWidth = 2
-        circleH.stroke()
-        circleH.fill()
+        if includeHandle {
+            UIColor.cyan.setFill()
+            circleH.lineWidth = 2
+            circleH.stroke()
+            circleH.fill()
+        }
     }
 }

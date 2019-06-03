@@ -75,7 +75,8 @@ class TwoSliderView: SliderView {
         UIColor.black.setStroke()
         let barOutline = UIBezierPath()
         barOutline.move(to: pivotA)
-        barOutline.addLine(to: pivotH)
+        barOutline.addLine(to: pivotB)
+        if includeHandle { barOutline.addLine(to: pivotH) }
         barOutline.lineWidth = CGFloat(Dim0.barWidth)
         barOutline.stroke()
         
@@ -83,7 +84,8 @@ class TwoSliderView: SliderView {
         UIColor.brown.setStroke()
         let bar = UIBezierPath()
         bar.move(to: pivotA)
-        bar.addLine(to: pivotH)
+        bar.addLine(to: pivotB)
+        if includeHandle { bar.addLine(to: pivotH) }
         bar.lineWidth = CGFloat(Dim0.barWidth - 2)
         bar.stroke()
         
@@ -113,9 +115,11 @@ class TwoSliderView: SliderView {
         circleB.stroke()
         circleB.fill()
         
-        UIColor.cyan.setFill()
-        circleH.lineWidth = 2
-        circleH.stroke()
-        circleH.fill()
+        if includeHandle {
+            UIColor.cyan.setFill()
+            circleH.lineWidth = 2
+            circleH.stroke()
+            circleH.fill()
+        }
     }
 }

@@ -16,7 +16,9 @@ struct Dim0 {
 }
 
 class SliderView: UIView {
-
+    
+    let includeHandle = true
+    
     var firstTouchAngle = 0.0
     var barAngle = -1.05 { didSet { setNeedsDisplay() } }  // 0 to right, positive clockwise in radians
 
@@ -37,7 +39,8 @@ class SliderView: UIView {
         if let touch = touches.first {
             let firstTouch = touch.location(in: self)
             firstTouchAngle = atan2(Double(firstTouch.y - viewCenter.y),
-                                    Double(firstTouch.x - viewCenter.x)) - barAngle
+                                    Double(firstTouch.x - viewCenter.x))
+            firstTouchAngle += includeHandle ? -barAngle : barAngle
         }
     }
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -46,6 +49,7 @@ class SliderView: UIView {
             let currentTouchAngle = atan2(Double(currentTouch.y - viewCenter.y),
                                           Double(currentTouch.x - viewCenter.x))
             barAngle = currentTouchAngle - firstTouchAngle
+            barAngle *= includeHandle ? 1.0 : -1.0
         }
     }
     
