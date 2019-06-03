@@ -11,8 +11,6 @@ import UIKit
 struct Dim0 {
     static let pivotRadius = 4.0
     static let handleRadius = 6.0
-    static let sliderWidth = 14.0
-    static let sliderLength = 55.0
     static let sliderCornerRadius = 4.0
     static let barWidth = 10.0
 }
@@ -71,10 +69,10 @@ class SliderView: UIView {
         box.fill()
     }
 
-    func drawSlider(of length: Double, at center: CGPoint, rotatedBy angle: Double) {
-        let sizeSlider = CGSize(width: length, height: Dim0.sliderWidth)
+    func drawSliderOf(length: Double, andWidth width: Double, at center: CGPoint, rotatedBy angle: Double) {
+        let sizeSlider = CGSize(width: length, height: width)
         let originSlider = CGPoint(x: Double(center.x) - length / 2.0,  // origin is top left corner
-            y: Double(center.y) - Dim0.sliderWidth / 2.0)
+                                   y: Double(center.y) - width / 2.0)
         let slider = UIBezierPath(roundedRect: CGRect(origin: originSlider, size: sizeSlider),
                                   cornerRadius: CGFloat(Dim0.sliderCornerRadius))
         
@@ -87,5 +85,27 @@ class SliderView: UIView {
         slider.lineWidth = 2
         slider.stroke()
         slider.fill()
+    }
+
+    func drawPieSectionWith(radius: Double, pointAngle: Double, sliderWidth: Double, rotatedBy angle: Double) {
+        let halfPt = pointAngle / 2.0
+        let pieLength = radius - sliderWidth / (2.0 * sin(halfPt) * cos(halfPt))
+        
+        let pie = UIBezierPath()
+        pie.move(to: CGPoint(x: viewCenterX, y: viewCenterY))
+        pie.addLine(to: CGPoint(x: viewCenterX + pieLength * cos(halfPt), y: viewCenterY + pieLength * sin(halfPt)))
+        pie.addLine(to: CGPoint(x: viewCenterX + pieLength * cos(halfPt), y: viewCenterY + pieLength * sin(-halfPt)))
+        pie.addLine(to: CGPoint(x: viewCenterX, y: viewCenterY))
+        
+        pie.apply(CGAffineTransform(translationX: CGFloat(viewCenterX), y: CGFloat(viewCenterY)).inverted())
+        pie.apply(CGAffineTransform(rotationAngle: CGFloat(angle)))
+        pie.apply(CGAffineTransform(translationX: CGFloat(viewCenterX + 0.5 * sliderWidth / sin(halfPt) * cos(angle)),
+                                               y: CGFloat(viewCenterY + 0.5 * sliderWidth / sin(halfPt) * sin(angle))))
+        UIColor.black.setStroke()
+        UIColor.lightGray.setFill()
+        
+        pie.lineWidth = 2
+        pie.stroke()
+        pie.fill()
     }
 }

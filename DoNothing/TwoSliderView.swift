@@ -14,12 +14,13 @@ class TwoSliderView: SliderView {
         static let abLength = 60.0
         static let handleLength = 80.0
         static let sliderLength = 60.0
+        static let sliderWidth = 14.0
         static let boxSize = 160.0
         static let boxCornerRadius = 0.0
     }
 
     private func drawCornerSquare(at origin: CGPoint) {
-        let size = (Dim2.boxSize - Dim0.sliderWidth) / 2.0
+        let size = (Dim2.boxSize - Dim2.sliderWidth) / 2.0
         let squareSize = CGSize(width: size, height: size)
         
         let square = UIBezierPath(roundedRect: CGRect(origin: origin, size: squareSize),
@@ -52,18 +53,18 @@ class TwoSliderView: SliderView {
                              y: Double(pivotB.y) + Dim2.handleLength * sin(barAngle))
         
         // draw sliders
-        drawSlider(of: Dim2.sliderLength, at: pivotA, rotatedBy: ninty)
-        drawSlider(of: Dim2.sliderLength, at: pivotB, rotatedBy: 0.0)
+        drawSliderOf(length: Dim2.sliderLength, andWidth: Dim2.sliderWidth, at: pivotA, rotatedBy: ninty)
+        drawSliderOf(length: Dim2.sliderLength, andWidth: Dim2.sliderWidth, at: pivotB, rotatedBy: 0.0)
         
         // draw four corner squares
         let origin1 = CGPoint(x: viewCenterX - Dim2.boxSize / 2.0,
                               y: viewCenterY - Dim2.boxSize / 2.0)
-        let origin2 = CGPoint(x: viewCenterX + Dim0.sliderWidth / 2.0,
+        let origin2 = CGPoint(x: viewCenterX + Dim2.sliderWidth / 2.0,
                               y: viewCenterY - Dim2.boxSize / 2.0)
         let origin3 = CGPoint(x: viewCenterX - Dim2.boxSize / 2.0,
-                              y: viewCenterY + Dim0.sliderWidth / 2.0)
-        let origin4 = CGPoint(x: viewCenterX + Dim0.sliderWidth / 2.0,
-                              y: viewCenterY + Dim0.sliderWidth / 2.0)
+                              y: viewCenterY + Dim2.sliderWidth / 2.0)
+        let origin4 = CGPoint(x: viewCenterX + Dim2.sliderWidth / 2.0,
+                              y: viewCenterY + Dim2.sliderWidth / 2.0)
         
         drawCornerSquare(at: origin1)
         drawCornerSquare(at: origin2)

@@ -14,28 +14,8 @@ class FourSliderView: SliderView {
         static let abLength = 60.0
         static let handleLength = 70.0
         static let sliderLength = 50.0
+        static let sliderWidth = 12.0
         static let boxRadius = 100.0
-    }
-    
-    private func drawPieSection(rotatedBy angle: Double) {
-        let pieLength = Dim4.boxRadius - Dim0.sliderWidth / (2.0 * sin(half45) * cos(half45))
-
-        let pie = UIBezierPath()
-        pie.move(to: CGPoint(x: viewCenterX, y: viewCenterY))
-        pie.addLine(to: CGPoint(x: viewCenterX + pieLength * cos(half45), y: viewCenterY + pieLength * sin(half45)))
-        pie.addLine(to: CGPoint(x: viewCenterX + pieLength * cos(half45), y: viewCenterY + pieLength * sin(-half45)))
-        pie.addLine(to: CGPoint(x: viewCenterX, y: viewCenterY))
-        
-        pie.apply(CGAffineTransform(translationX: CGFloat(viewCenterX), y: CGFloat(viewCenterY)).inverted())
-        pie.apply(CGAffineTransform(rotationAngle: CGFloat(angle)))
-        pie.apply(CGAffineTransform(translationX: CGFloat(viewCenterX + 0.5 * Dim0.sliderWidth / sin(half45) * cos(angle)),
-                                               y: CGFloat(viewCenterY + 0.5 * Dim0.sliderWidth / sin(half45) * sin(angle))))
-        UIColor.black.setStroke()
-        UIColor.lightGray.setFill()
-        
-        pie.lineWidth = 2
-        pie.stroke()
-        pie.fill()
     }
     
     override func draw(_ rect: CGRect) {
@@ -54,15 +34,15 @@ class FourSliderView: SliderView {
                              y: Double(pivotA.y) + Dim4.handleLength * sin(barAngle))
         
         // draw sliders
-        drawSlider(of: Dim4.sliderLength, at: pivotA, rotatedBy: 0.0)
-        drawSlider(of: Dim4.sliderLength, at: pivotB, rotatedBy: fortyFive)
-        drawSlider(of: Dim4.sliderLength, at: pivotC, rotatedBy: ninty)
-        drawSlider(of: Dim4.sliderLength, at: pivotD, rotatedBy: -fortyFive)
+        drawSliderOf(length: Dim4.sliderLength, andWidth: Dim4.sliderWidth, at: pivotA, rotatedBy: 0.0)
+        drawSliderOf(length: Dim4.sliderLength, andWidth: Dim4.sliderWidth, at: pivotB, rotatedBy: fortyFive)
+        drawSliderOf(length: Dim4.sliderLength, andWidth: Dim4.sliderWidth, at: pivotC, rotatedBy: ninty)
+        drawSliderOf(length: Dim4.sliderLength, andWidth: Dim4.sliderWidth, at: pivotD, rotatedBy: -fortyFive)
 
         // draw eight pie wedges
         for i in 0..<8 {
             let angle = fortyFive * (0.5 + Double(i))
-            drawPieSection(rotatedBy: angle)
+            drawPieSectionWith(radius: Dim4.boxRadius, pointAngle: fortyFive, sliderWidth: Dim4.sliderWidth, rotatedBy: angle)
         }
         
         // draw bar
