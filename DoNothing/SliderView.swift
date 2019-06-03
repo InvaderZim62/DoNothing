@@ -8,6 +8,15 @@
 
 import UIKit
 
+struct Dim0 {
+    static let pivotRadius = 4.0
+    static let handleRadius = 6.0
+    static let sliderWidth = 14.0
+    static let sliderLength = 55.0
+    static let sliderCornerRadius = 4.0
+    static let barWidth = 10.0
+}
+
 class SliderView: UIView {
 
     let thirty = 30.0 * Double.pi / 180.0  // radians
@@ -44,5 +53,23 @@ class SliderView: UIView {
                                           Double(currentTouch.x - viewCenter.x))
             barAngle = currentTouchAngle - firstTouchAngle
         }
+    }
+    
+    func drawSlider(of length: Double, at center: CGPoint, rotatedBy angle: Double) {
+        let sizeSlider = CGSize(width: length, height: Dim0.sliderWidth)
+        let originSlider = CGPoint(x: Double(center.x) - length / 2.0,  // origin is top left corner
+            y: Double(center.y) - Dim0.sliderWidth / 2.0)
+        let slider = UIBezierPath(roundedRect: CGRect(origin: originSlider, size: sizeSlider),
+                                  cornerRadius: CGFloat(Dim0.sliderCornerRadius))
+        
+        // rotate (move to view origin, rotate about view origin, move back out)
+        slider.apply(CGAffineTransform(translationX: center.x, y: center.y).inverted())
+        slider.apply(CGAffineTransform(rotationAngle: CGFloat(angle)))
+        slider.apply(CGAffineTransform(translationX: center.x, y: center.y))
+        
+        UIColor.brown.setFill()
+        slider.lineWidth = 2
+        slider.stroke()
+        slider.fill()
     }
 }

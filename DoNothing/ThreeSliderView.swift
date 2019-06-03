@@ -10,37 +10,15 @@ import UIKit
 
 class ThreeSliderView: SliderView {
 
-    struct Dimensions {
+    struct Dim3 {
         static let abLength = 70.0
-        static let pivotRadius = 4.0
-        static let handleRadius = 6.0
-        static let sliderWidth = 14.0
+        static let handleLength = 70.0
         static let sliderLength = 55.0
-        static let sliderCornerRadius = 4.0
         static let boxRadius = 100.0
-        static let barWidth = 10.0
-    }
-    
-    private func drawSlider(at center: CGPoint, rotatedBy angle: Double) {
-        let sizeSlider = CGSize(width: Dimensions.sliderLength, height: Dimensions.sliderWidth)
-        let originSlider = CGPoint(x: Double(center.x) - Dimensions.sliderLength / 2.0,  // origin is top left corner
-            y: Double(center.y) - Dimensions.sliderWidth / 2.0)
-        let slider = UIBezierPath(roundedRect: CGRect(origin: originSlider, size: sizeSlider),
-                                  cornerRadius: CGFloat(Dimensions.sliderCornerRadius))
-        
-        // rotate (move to view origin, rotate about view origin, move back out)
-        slider.apply(CGAffineTransform(translationX: center.x, y: center.y).inverted())
-        slider.apply(CGAffineTransform(rotationAngle: CGFloat(angle)))
-        slider.apply(CGAffineTransform(translationX: center.x, y: center.y))
-        
-        UIColor.brown.setFill()
-        slider.lineWidth = 2
-        slider.stroke()
-        slider.fill()
     }
 
     private func drawPieSection(rotatedBy angle: Double) {
-        let pieLength = Dimensions.boxRadius - 1.155 * Dimensions.sliderWidth  // = 1 / (2 * sin(thirty) * cos(thirty))
+        let pieLength = Dim3.boxRadius - 1.155 * Dim0.sliderWidth  // = 1 / (2 * sin(thirty) * cos(thirty))
         
         let pie = UIBezierPath()
         pie.move(to: CGPoint(x: viewCenterX, y: viewCenterY))
@@ -50,8 +28,8 @@ class ThreeSliderView: SliderView {
 
         pie.apply(CGAffineTransform(translationX: CGFloat(viewCenterX), y: CGFloat(viewCenterY)).inverted())
         pie.apply(CGAffineTransform(rotationAngle: CGFloat(angle)))
-        pie.apply(CGAffineTransform(translationX: CGFloat(viewCenterX + Dimensions.sliderWidth * cos(angle)),
-                                               y: CGFloat(viewCenterY + Dimensions.sliderWidth * sin(angle))))
+        pie.apply(CGAffineTransform(translationX: CGFloat(viewCenterX + Dim0.sliderWidth * cos(angle)),
+                                               y: CGFloat(viewCenterY + Dim0.sliderWidth * sin(angle))))
         UIColor.black.setStroke()
         UIColor.lightGray.setFill()
         
@@ -63,29 +41,29 @@ class ThreeSliderView: SliderView {
     override func draw(_ rect: CGRect) {
         // draw box around whole game
         let box = UIBezierPath()
-        box.move(to: CGPoint(x: viewCenterX + Dimensions.boxRadius, y: viewCenterY))
+        box.move(to: CGPoint(x: viewCenterX + Dim3.boxRadius, y: viewCenterY))
         for i in 1...5 {
             let angle = Double(i) * sixty
-            box.addLine(to: CGPoint(x: viewCenterX + Dimensions.boxRadius * cos(angle),
-                                    y: viewCenterY - Dimensions.boxRadius * sin(angle)))
+            box.addLine(to: CGPoint(x: viewCenterX + Dim3.boxRadius * cos(angle),
+                                    y: viewCenterY - Dim3.boxRadius * sin(angle)))
         }
         UIColor.gray.setFill()
         box.fill()
         
         // compute pivot and handle locations
-        let pivotC = CGPoint(x: viewCenterX + Dimensions.abLength * (cos(sixty - barAngle) / tan(sixty) + sin(sixty - barAngle)),
+        let pivotC = CGPoint(x: viewCenterX + Dim3.abLength * (cos(sixty - barAngle) / tan(sixty) + sin(sixty - barAngle)),
                              y: viewCenterY)
-        let pivotA = CGPoint(x: Double(pivotC.x) - Dimensions.abLength * cos(barAngle - thirty),
-                             y: Double(pivotC.y) - Dimensions.abLength * sin(barAngle - thirty))
-        let pivotB = CGPoint(x: Double(pivotC.x) - Dimensions.abLength * sin(sixty - barAngle),
-                             y: Double(pivotC.y) - Dimensions.abLength * cos(sixty - barAngle))
-        let pivotH = CGPoint(x: Double(pivotC.x) + Dimensions.abLength * cos(barAngle),
-                             y: Double(pivotC.y) + Dimensions.abLength * sin(barAngle))
+        let pivotA = CGPoint(x: Double(pivotC.x) - Dim3.abLength * cos(barAngle - thirty),
+                             y: Double(pivotC.y) - Dim3.abLength * sin(barAngle - thirty))
+        let pivotB = CGPoint(x: Double(pivotC.x) - Dim3.abLength * sin(sixty - barAngle),
+                             y: Double(pivotC.y) - Dim3.abLength * cos(sixty - barAngle))
+        let pivotH = CGPoint(x: Double(pivotC.x) + Dim3.handleLength * cos(barAngle),
+                             y: Double(pivotC.y) + Dim3.handleLength * sin(barAngle))
         
         // draw sliders
-        drawSlider(at: pivotA, rotatedBy: sixty)
-        drawSlider(at: pivotB, rotatedBy: -sixty)
-        drawSlider(at: pivotC, rotatedBy: 0.0)
+        drawSlider(of: Dim3.sliderLength, at: pivotA, rotatedBy: sixty)
+        drawSlider(of: Dim3.sliderLength, at: pivotB, rotatedBy: -sixty)
+        drawSlider(of: Dim3.sliderLength, at: pivotC, rotatedBy: 0.0)
         
         // draw five pie wedges
         for i in 0...5 {
@@ -101,7 +79,7 @@ class ThreeSliderView: SliderView {
         barOutline.addLine(to: pivotB)
         barOutline.addLine(to: pivotC)
         barOutline.addLine(to: pivotH)
-        barOutline.lineWidth = CGFloat(Dimensions.barWidth)
+        barOutline.lineWidth = CGFloat(Dim0.barWidth)
         barOutline.stroke()
 
         UIColor.brown.setStroke()
@@ -111,27 +89,27 @@ class ThreeSliderView: SliderView {
         bar.addLine(to: pivotB)
         bar.addLine(to: pivotC)
         bar.addLine(to: pivotH)
-        bar.lineWidth = CGFloat(Dimensions.barWidth - 2)
+        bar.lineWidth = CGFloat(Dim0.barWidth - 2)
         bar.stroke()
         
         // draw pivots and handle
         let circleA = UIBezierPath(arcCenter: pivotA,
-                                   radius: CGFloat(Dimensions.pivotRadius),
+                                   radius: CGFloat(Dim0.pivotRadius),
                                    startAngle: 0.0,
                                    endAngle: CGFloat(2.0 * Double.pi),
                                    clockwise: true)
         let circleB = UIBezierPath(arcCenter: pivotB,
-                                   radius: CGFloat(Dimensions.pivotRadius),
+                                   radius: CGFloat(Dim0.pivotRadius),
                                    startAngle: 0.0,
                                    endAngle: CGFloat(2.0 * Double.pi),
                                    clockwise: true)
         let circleC = UIBezierPath(arcCenter: pivotC,
-                                   radius: CGFloat(Dimensions.pivotRadius),
+                                   radius: CGFloat(Dim0.pivotRadius),
                                    startAngle: 0.0,
                                    endAngle: CGFloat(2.0 * Double.pi),
                                    clockwise: true)
         let circleH = UIBezierPath(arcCenter: pivotH,
-                                   radius: CGFloat(Dimensions.handleRadius),
+                                   radius: CGFloat(Dim0.handleRadius),
                                    startAngle: 0.0,
                                    endAngle: CGFloat(2.0 * Double.pi),
                                    clockwise: true)
