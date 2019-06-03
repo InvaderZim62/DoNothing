@@ -19,9 +19,8 @@ class SliderView: UIView {
 
     let thirty = 30.0 * Double.pi / 180.0  // radians
     let fortyFive = 45.0 * Double.pi / 180.0
-    let half45 = 45.0 / 2.0 * Double.pi / 180.0
     let sixty = 60.0 * Double.pi / 180.0
-    let ninty = 90.0 * Double.pi / 180.0
+    let ninety = 90.0 * Double.pi / 180.0
     let oneEighty = 180.0 * Double.pi / 180.0
     let oneThirtyFive = 135.0 * Double.pi / 180.0
 

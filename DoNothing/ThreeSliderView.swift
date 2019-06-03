@@ -42,7 +42,7 @@ class ThreeSliderView: SliderView {
             drawPieSectionWith(radius: Dim3.boxRadius, pointAngle: sixty, sliderWidth: Dim3.sliderWidth, rotatedBy: angle)
         }
         
-        // draw bar
+        // draw bar (wide for black outline)
         UIColor.black.setStroke()
         let barOutline = UIBezierPath()
         barOutline.move(to: pivotA)
@@ -53,6 +53,7 @@ class ThreeSliderView: SliderView {
         barOutline.lineWidth = CGFloat(Dim0.barWidth)
         barOutline.stroke()
 
+        // draw bar (narrower for brown fill)
         UIColor.brown.setStroke()
         let bar = UIBezierPath()
         bar.move(to: pivotA)
@@ -63,7 +64,7 @@ class ThreeSliderView: SliderView {
         bar.lineWidth = CGFloat(Dim0.barWidth - 2)
         bar.stroke()
         
-        // draw pivots and handle
+        // draw pivots and handle circles
         let circleA = UIBezierPath(arcCenter: pivotA,
                                    radius: CGFloat(Dim0.pivotRadius),
                                    startAngle: 0.0,

@@ -36,7 +36,7 @@ class FourSliderView: SliderView {
         // draw sliders
         drawSliderOf(length: Dim4.sliderLength, andWidth: Dim4.sliderWidth, at: pivotA, rotatedBy: 0.0)
         drawSliderOf(length: Dim4.sliderLength, andWidth: Dim4.sliderWidth, at: pivotB, rotatedBy: fortyFive)
-        drawSliderOf(length: Dim4.sliderLength, andWidth: Dim4.sliderWidth, at: pivotC, rotatedBy: ninty)
+        drawSliderOf(length: Dim4.sliderLength, andWidth: Dim4.sliderWidth, at: pivotC, rotatedBy: ninety)
         drawSliderOf(length: Dim4.sliderLength, andWidth: Dim4.sliderWidth, at: pivotD, rotatedBy: -fortyFive)
 
         // draw eight pie wedges
@@ -45,7 +45,7 @@ class FourSliderView: SliderView {
             drawPieSectionWith(radius: Dim4.boxRadius, pointAngle: fortyFive, sliderWidth: Dim4.sliderWidth, rotatedBy: angle)
         }
         
-        // draw bar
+        // draw bar (wide for black outline)
         UIColor.black.setStroke()
         let barOutline = UIBezierPath()
         barOutline.move(to: pivotA)
@@ -57,6 +57,7 @@ class FourSliderView: SliderView {
         barOutline.lineWidth = CGFloat(Dim0.barWidth)
         barOutline.stroke()
         
+        // draw bar (narrower for brown fill)
         UIColor.brown.setStroke()
         let bar = UIBezierPath()
         bar.move(to: pivotA)
@@ -68,7 +69,7 @@ class FourSliderView: SliderView {
         bar.lineWidth = CGFloat(Dim0.barWidth - 2)
         bar.stroke()
         
-        // draw pivots and handle
+        // draw pivots and handle circles
         let circleA = UIBezierPath(arcCenter: pivotA,
                                    radius: CGFloat(Dim0.pivotRadius),
                                    startAngle: 0.0,

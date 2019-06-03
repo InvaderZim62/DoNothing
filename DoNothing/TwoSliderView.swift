@@ -53,7 +53,7 @@ class TwoSliderView: SliderView {
                              y: Double(pivotB.y) + Dim2.handleLength * sin(barAngle))
         
         // draw sliders
-        drawSliderOf(length: Dim2.sliderLength, andWidth: Dim2.sliderWidth, at: pivotA, rotatedBy: ninty)
+        drawSliderOf(length: Dim2.sliderLength, andWidth: Dim2.sliderWidth, at: pivotA, rotatedBy: ninety)
         drawSliderOf(length: Dim2.sliderLength, andWidth: Dim2.sliderWidth, at: pivotB, rotatedBy: 0.0)
         
         // draw four corner squares
@@ -71,7 +71,7 @@ class TwoSliderView: SliderView {
         drawCornerSquare(at: origin3)
         drawCornerSquare(at: origin4)
         
-        // draw bar
+        // draw bar (wide for black outline)
         UIColor.black.setStroke()
         let barOutline = UIBezierPath()
         barOutline.move(to: pivotA)
@@ -79,6 +79,7 @@ class TwoSliderView: SliderView {
         barOutline.lineWidth = CGFloat(Dim0.barWidth)
         barOutline.stroke()
         
+        // draw bar (narrower for brown fill)
         UIColor.brown.setStroke()
         let bar = UIBezierPath()
         bar.move(to: pivotA)
@@ -86,7 +87,7 @@ class TwoSliderView: SliderView {
         bar.lineWidth = CGFloat(Dim0.barWidth - 2)
         bar.stroke()
         
-        // draw pivots and handle
+        // draw pivots and handle circles
         let circleA = UIBezierPath(arcCenter: pivotA,
                                    radius: CGFloat(Dim0.pivotRadius),
                                    startAngle: 0.0,
