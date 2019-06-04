@@ -38,8 +38,8 @@ class TwoSliderView: SliderView {
         includeHandle = delegate?.getHandleState() ?? true
 
         // draw box around whole game
-        let boxOrigin = CGPoint(x: viewCenterX - Dim2.boxSize / 2.0,
-                                y: viewCenterY - Dim2.boxSize / 2.0)
+        let boxOrigin = CGPoint(x: centerX - Dim2.boxSize / 2.0,
+                                y: centerY - Dim2.boxSize / 2.0)
         let boxSize = CGSize(width: Dim2.boxSize, height: Dim2.boxSize)
         let box = UIBezierPath(roundedRect: CGRect(origin: boxOrigin, size: boxSize),
                                cornerRadius: CGFloat(Dim2.boxCornerRadius))
@@ -47,10 +47,10 @@ class TwoSliderView: SliderView {
         box.fill()
         
         // compute pivot and handle locations
-        let pivotA = CGPoint(x: viewCenterX,
-                             y: viewCenterY - Dim2.abLength * sin(barAngle))
-        let pivotB = CGPoint(x: viewCenterX + Dim2.abLength * cos(barAngle),
-                             y: viewCenterY)
+        let pivotA = CGPoint(x: centerX,
+                             y: centerY - Dim2.abLength * sin(barAngle))
+        let pivotB = CGPoint(x: centerX + Dim2.abLength * cos(barAngle),
+                             y: centerY)
         let pivotH = CGPoint(x: Double(pivotB.x) + Dim2.handleLength * cos(barAngle),
                              y: Double(pivotB.y) + Dim2.handleLength * sin(barAngle))
         
@@ -59,14 +59,14 @@ class TwoSliderView: SliderView {
         drawSliderOf(length: Dim2.sliderLength, andWidth: Dim2.sliderWidth, at: pivotB, rotatedBy: 0.0)
         
         // draw four corner squares
-        let origin1 = CGPoint(x: viewCenterX - Dim2.boxSize / 2.0,
-                              y: viewCenterY - Dim2.boxSize / 2.0)
-        let origin2 = CGPoint(x: viewCenterX + Dim2.sliderWidth / 2.0,
-                              y: viewCenterY - Dim2.boxSize / 2.0)
-        let origin3 = CGPoint(x: viewCenterX - Dim2.boxSize / 2.0,
-                              y: viewCenterY + Dim2.sliderWidth / 2.0)
-        let origin4 = CGPoint(x: viewCenterX + Dim2.sliderWidth / 2.0,
-                              y: viewCenterY + Dim2.sliderWidth / 2.0)
+        let origin1 = CGPoint(x: centerX - Dim2.boxSize / 2.0,
+                              y: centerY - Dim2.boxSize / 2.0)
+        let origin2 = CGPoint(x: centerX + Dim2.sliderWidth / 2.0,
+                              y: centerY - Dim2.boxSize / 2.0)
+        let origin3 = CGPoint(x: centerX - Dim2.boxSize / 2.0,
+                              y: centerY + Dim2.sliderWidth / 2.0)
+        let origin4 = CGPoint(x: centerX + Dim2.sliderWidth / 2.0,
+                              y: centerY + Dim2.sliderWidth / 2.0)
         
         drawCornerSquare(at: origin1)
         drawCornerSquare(at: origin2)

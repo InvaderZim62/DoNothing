@@ -28,15 +28,14 @@ class SliderView: UIView {
     var firstTouchAngle = 0.0
     var barAngle = -1.05 { didSet { setNeedsDisplay() } }  // 0 to right, positive clockwise in radians
 
-    lazy var viewCenter = convert(center, from: superview)
-    lazy var viewCenterX = Double(viewCenter.x)
-    lazy var viewCenterY = Double(viewCenter.y)
+//    lazy var viewCenter = convert(center, from: superview)
+    lazy var centerX = Double(self.center.x)
+    lazy var centerY = Double(self.center.y)
     
     // called if bounds change
     override func layoutSubviews() {
-        viewCenter = convert(center, from: superview)
-        viewCenterX = Double(viewCenter.x)
-        viewCenterY = Double(viewCenter.y)
+        centerX = Double(self.center.x)
+        centerY = Double(self.center.y)
         setNeedsDisplay()
     }
 
@@ -44,16 +43,16 @@ class SliderView: UIView {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             let firstTouch = touch.location(in: self)
-            firstTouchAngle = atan2(Double(firstTouch.y - viewCenter.y),
-                                    Double(firstTouch.x - viewCenter.x))
+            firstTouchAngle = atan2(Double(firstTouch.y - self.center.y),
+                                    Double(firstTouch.x - self.center.x))
             firstTouchAngle += includeHandle ? -barAngle : barAngle
         }
     }
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             let currentTouch = touch.location(in: self)
-            let currentTouchAngle = atan2(Double(currentTouch.y - viewCenter.y),
-                                          Double(currentTouch.x - viewCenter.x))
+            let currentTouchAngle = atan2(Double(currentTouch.y - self.center.y),
+                                          Double(currentTouch.x - self.center.x))
             barAngle = currentTouchAngle - firstTouchAngle
             barAngle *= includeHandle ? 1.0 : -1.0
         }
@@ -61,11 +60,11 @@ class SliderView: UIView {
     
     func drawGameBackingFor(numberOfSliders: Int, with radius: Double) {
         let box = UIBezierPath()
-        box.move(to: CGPoint(x: viewCenterX + radius, y: viewCenterY))
+        box.move(to: CGPoint(x: centerX + radius, y: centerY))
         for i in 1..<2*numberOfSliders {
             let angle = Double(i) * 180.rads / Double(numberOfSliders)
-            box.addLine(to: CGPoint(x: viewCenterX + radius * cos(angle),
-                                    y: viewCenterY - radius * sin(angle)))
+            box.addLine(to: CGPoint(x: centerX + radius * cos(angle),
+                                    y: centerY - radius * sin(angle)))
         }
         UIColor.gray.setFill()
         box.fill()
@@ -94,15 +93,15 @@ class SliderView: UIView {
         let pieLength = radius - sliderWidth / (2.0 * sin(halfPt) * cos(halfPt))
         
         let pie = UIBezierPath()
-        pie.move(to: CGPoint(x: viewCenterX, y: viewCenterY))
-        pie.addLine(to: CGPoint(x: viewCenterX + pieLength * cos(halfPt), y: viewCenterY + pieLength * sin(halfPt)))
-        pie.addLine(to: CGPoint(x: viewCenterX + pieLength * cos(halfPt), y: viewCenterY + pieLength * sin(-halfPt)))
-        pie.addLine(to: CGPoint(x: viewCenterX, y: viewCenterY))
+        pie.move(to: CGPoint(x: centerX, y: centerY))
+        pie.addLine(to: CGPoint(x: centerX + pieLength * cos(halfPt), y: centerY + pieLength * sin(halfPt)))
+        pie.addLine(to: CGPoint(x: centerX + pieLength * cos(halfPt), y: centerY + pieLength * sin(-halfPt)))
+        pie.addLine(to: CGPoint(x: centerX, y: centerY))
         
-        pie.apply(CGAffineTransform(translationX: CGFloat(viewCenterX), y: CGFloat(viewCenterY)).inverted())
+        pie.apply(CGAffineTransform(translationX: CGFloat(centerX), y: CGFloat(centerY)).inverted())
         pie.apply(CGAffineTransform(rotationAngle: CGFloat(angle)))
-        pie.apply(CGAffineTransform(translationX: CGFloat(viewCenterX + 0.5 * sliderWidth / sin(halfPt) * cos(angle)),
-                                               y: CGFloat(viewCenterY + 0.5 * sliderWidth / sin(halfPt) * sin(angle))))
+        pie.apply(CGAffineTransform(translationX: CGFloat(centerX + 0.5 * sliderWidth / sin(halfPt) * cos(angle)),
+                                               y: CGFloat(centerY + 0.5 * sliderWidth / sin(halfPt) * sin(angle))))
         UIColor.black.setStroke()
         UIColor.lightGray.setFill()
         
@@ -115,5 +114,9 @@ class SliderView: UIView {
 extension Double {
     var rads: Double {
         return self * Double.pi / 180.0
+    }
+    
+    var degs: Double {
+        return self * 180.0 / Double.pi
     }
 }

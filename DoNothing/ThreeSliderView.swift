@@ -24,8 +24,8 @@ class ThreeSliderView: SliderView {
         drawGameBackingFor(numberOfSliders: 3, with: Dim3.boxRadius)
         
         // compute pivot and handle locations
-        let pivotA = CGPoint(x: viewCenterX + Dim3.abLength * (cos(60.rads - barAngle) / tan(60.rads) + sin(60.rads - barAngle)),
-                             y: viewCenterY)
+        let pivotA = CGPoint(x: centerX + Dim3.abLength * (cos(60.rads - barAngle) / tan(60.rads) + sin(60.rads - barAngle)),
+                             y: centerY)
         let pivotB = CGPoint(x: Double(pivotA.x) - Dim3.abLength * cos(barAngle - 30.rads),
                              y: Double(pivotA.y) - Dim3.abLength * sin(barAngle - 30.rads))
         let pivotC = CGPoint(x: Double(pivotA.x) - Dim3.abLength * sin(60.rads - barAngle),
