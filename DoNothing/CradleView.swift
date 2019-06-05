@@ -8,11 +8,6 @@
 
 import UIKit
 
-struct BallDims {
-    static let radius = 20.0
-    static let stringLength = 200.0
-}
-
 class CradleView: UIView {
     
     var time = 0.0 { didSet { setNeedsDisplay() } }  // time just used to force drawing update
@@ -26,26 +21,27 @@ class CradleView: UIView {
     // called when first on screen or if bounds change
     override func layoutSubviews() {
         computePivots()
+        setNeedsDisplay()
     }
 
     private func computePivots() {
         pivots.removeAll()
-        let leftPivot = Double(self.bounds.width) / 2.0 - Double(balls.count - 1) * BallDims.radius
-        let barHeight = (Double(self.bounds.height) - BallDims.stringLength) / 2.0
+        let leftPivot = Double(self.bounds.width) / 2.0 - Double(balls.count - 1) * Constants.radius
+        let barHeight = (Double(self.bounds.height) - Constants.stringLength) / 2.0
         for i in 0..<balls.count {
-            let pivot = CGPoint(x: leftPivot + Double(i) * 2.0 * BallDims.radius,
+            let pivot = CGPoint(x: leftPivot + Double(i) * 2.0 * Constants.radius,
                                 y: barHeight)
             pivots.append(pivot)
         }
-        leftBarEnd = CGPoint(x: leftPivot - BallDims.radius, y: barHeight - 2.0)
-        rightBarEnd = CGPoint(x: Double(pivots.last!.x) + BallDims.radius, y: barHeight - 2.0)
+        leftBarEnd = CGPoint(x: leftPivot - Constants.radius, y: barHeight - 2.0)
+        rightBarEnd = CGPoint(x: Double(pivots.last!.x) + Constants.radius, y: barHeight - 2.0)
     }
 
     override func draw(_ rect: CGRect) {
         for i in 0..<balls.count {
             // compute ball position
-            let ballCenter = CGPoint(x: pivots[i].x + CGFloat(BallDims.stringLength * sin(balls[i].angle)),
-                                     y: pivots[i].y + CGFloat(BallDims.stringLength * cos(balls[i].angle)))
+            let ballCenter = CGPoint(x: pivots[i].x + CGFloat(Constants.stringLength * sin(balls[i].angle)),
+                                     y: pivots[i].y + CGFloat(Constants.stringLength * cos(balls[i].angle)))
             ballViews[i].center = ballCenter
 
             // draw string

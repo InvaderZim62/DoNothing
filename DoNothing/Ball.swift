@@ -14,14 +14,10 @@ class Ball: NSObject {
     var rate = 0.0   // rad/sec
     var accel = 0.0  // rad/s2
     
-    init(angle: Double) {
-        self.angle = angle
-    }
-    
     func simulate() {  // rectangular integration
-        accel = -CradleDims.G / CradleDims.length * sin(angle)
-        rate += accel * CradleDims.frameTime
-        angle += rate * CradleDims.frameTime
+        accel = -Constants.G / Constants.length * sin(angle)
+        rate += accel * Constants.frameTime
+        angle += rate * Constants.frameTime
     }
     
     static func handleCollisionsBetween(balls: [Ball]) {
