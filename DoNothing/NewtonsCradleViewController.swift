@@ -11,10 +11,10 @@ import UIKit
 struct Constants {
     static let numberOfBalls = 5
     static let frameTime = 0.01      // sec
-    static let length = 1.0          // ft, physical length (longer will slow down balls)
-    static let radius = 20.0         // points
-    static let stringLength = 200.0  // points
+    static let pendulumLength = 1.0  // ft (physics)
     static let G = 32.179            // ft/s2
+    static let ballRadius = 20.0     // points
+    static let stringLength = 200.0  // points (drawing)
 }
 
 class NewtonsCradleViewController: UIViewController {
@@ -60,8 +60,8 @@ class NewtonsCradleViewController: UIViewController {
         
         cradleView.balls = balls
         for _ in 0..<balls.count {
-            let ballView = BallView(frame: CGRect(x: 0.0, y: 0.0, width: 2.0 * Constants.radius,
-                                                  height: 2.0 * Constants.radius))
+            let ballView = BallView(frame: CGRect(x: 0.0, y: 0.0, width: 2.0 * Constants.ballRadius,
+                                                  height: 2.0 * Constants.ballRadius))
             // add two swipe gestures to ballView
             let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(ballSwiped))
             swipeLeft.direction = .left

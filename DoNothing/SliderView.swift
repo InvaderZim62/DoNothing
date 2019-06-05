@@ -109,13 +109,3 @@ class SliderView: UIView {
         pie.fill()
     }
 }
-
-extension Double {
-    var rads: Double {
-        return self * Double.pi / 180.0
-    }
-    
-    var degs: Double {
-        return self * 180.0 / Double.pi
-    }
-}

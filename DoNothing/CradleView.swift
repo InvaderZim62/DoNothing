@@ -26,15 +26,15 @@ class CradleView: UIView {
 
     private func computePivots() {
         pivots.removeAll()
-        let leftPivot = Double(self.bounds.width) / 2.0 - Double(balls.count - 1) * Constants.radius
+        let leftPivot = Double(self.bounds.width) / 2.0 - Double(balls.count - 1) * Constants.ballRadius
         let barHeight = (Double(self.bounds.height) - Constants.stringLength) / 2.0
         for i in 0..<balls.count {
-            let pivot = CGPoint(x: leftPivot + Double(i) * 2.0 * Constants.radius,
+            let pivot = CGPoint(x: leftPivot + Double(i) * 2.0 * Constants.ballRadius,
                                 y: barHeight)
             pivots.append(pivot)
         }
-        leftBarEnd = CGPoint(x: leftPivot - Constants.radius, y: barHeight - 2.0)
-        rightBarEnd = CGPoint(x: Double(pivots.last!.x) + Constants.radius, y: barHeight - 2.0)
+        leftBarEnd = CGPoint(x: leftPivot - Constants.ballRadius, y: barHeight - 2.0)
+        rightBarEnd = CGPoint(x: Double(pivots.last!.x) + Constants.ballRadius, y: barHeight - 2.0)
     }
 
     override func draw(_ rect: CGRect) {

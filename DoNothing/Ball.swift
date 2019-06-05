@@ -19,7 +19,7 @@ class Ball: NSObject {
     var accel = 0.0  // rad/s2
     
     func simulate() {  // rectangular integration
-        accel = -Constants.G / Constants.length * sin(angle)
+        accel = -Constants.G / Constants.pendulumLength * sin(angle)
         rate += accel * Constants.frameTime
         angle += rate * Constants.frameTime
     }
