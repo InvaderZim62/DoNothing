@@ -24,16 +24,20 @@ class Ball: NSObject {
         angle += rate * Constants.frameTime
     }
     
-    static func handleCollisionsBetween(balls: [Ball]) {
+    static func isCollisionsBetween(balls: [Ball]) -> Bool {
+        var isCollision = false
         for i in 0..<balls.count {
             if i < balls.count-1 && balls[i].rate > 0.0 && balls[i].angle >= balls[i+1].angle {
+                if abs(balls[i].rate - balls[i+1].rate) > 2.0 { isCollision = true }
                 balls[i].angle = balls[i+1].angle
                 Ball.swap(a: &balls[i].rate, b: &balls[i+1].rate)
             } else if i > 0 && balls[i].rate < 0.0 && balls[i].angle <= balls[i-1].angle {
+                if abs(balls[i].rate - balls[i-1].rate) > 2.0 { isCollision = true }
                 balls[i].angle = balls[i-1].angle
                 Ball.swap(a: &balls[i].rate, b: &balls[i-1].rate)
             }
         }
+        return isCollision
     }
     
     static func swipedAt(index: Int, of balls: [Ball], to direction: UISwipeGestureRecognizer.Direction) {

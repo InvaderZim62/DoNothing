@@ -20,6 +20,7 @@
 		4AF1BC8122A719E200D3DF23 /* CradleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF1BC8022A719E200D3DF23 /* CradleView.swift */; };
 		4AF1BC8322A71A5100D3DF23 /* Ball.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF1BC8222A71A5100D3DF23 /* Ball.swift */; };
 		4AF1BC8522A76A4900D3DF23 /* BallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF1BC8422A76A4900D3DF23 /* BallView.swift */; };
+		4AF1BC8D22A8587700D3DF23 /* click.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4AF1BC8C22A8587700D3DF23 /* click.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		4AF1BC8022A719E200D3DF23 /* CradleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CradleView.swift; sourceTree = "<group>"; };
 		4AF1BC8222A71A5100D3DF23 /* Ball.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ball.swift; sourceTree = "<group>"; };
 		4AF1BC8422A76A4900D3DF23 /* BallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BallView.swift; sourceTree = "<group>"; };
+		4AF1BC8C22A8587700D3DF23 /* click.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = click.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +82,7 @@
 				4AF1BC8022A719E200D3DF23 /* CradleView.swift */,
 				4AF1BC8422A76A4900D3DF23 /* BallView.swift */,
 				4AF1BC8222A71A5100D3DF23 /* Ball.swift */,
+				4AF1BC8C22A8587700D3DF23 /* click.wav */,
 				4AB29C1622A1AE1E00D1B9C0 /* Supporting Files */,
 			);
 			path = DoNothing;
@@ -157,6 +160,7 @@
 				4AB29C0F22A1ADF900D1B9C0 /* LaunchScreen.storyboard in Resources */,
 				4AB29C0C22A1ADF900D1B9C0 /* Assets.xcassets in Resources */,
 				4AB29C0A22A1ADE500D1B9C0 /* Main.storyboard in Resources */,
+				4AF1BC8D22A8587700D3DF23 /* click.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

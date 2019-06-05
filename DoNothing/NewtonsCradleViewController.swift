@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation  // needed for AVAudioPlayer
 
 struct Constants {
     static let numberOfBalls = 5
@@ -21,7 +22,9 @@ class NewtonsCradleViewController: UIViewController {
 
     private var simulationTimer = Timer()
     private var balls = [Ball]()
-    
+    private var player: AVAudioPlayer?
+    private var collisionTime = 0.0
+
     private var isRunning = true {
         didSet {
             stopStartButton.setTitle(isRunning ? "Stop" : "Start", for: .normal)
@@ -84,6 +87,8 @@ class NewtonsCradleViewController: UIViewController {
     }
 
     private func startSimulation() {
+        cradleView.time = 0.0
+        collisionTime = 0.0
         simulationTimer = Timer.scheduledTimer(timeInterval: Constants.frameTime, target: self,
                                                selector: #selector(updateSimulation),
                                                userInfo: nil, repeats: true)
@@ -91,7 +96,14 @@ class NewtonsCradleViewController: UIViewController {
     
     @objc func updateSimulation() {
         _ = balls.map { $0.simulate() }  // execute one simulation step for each ball
-        Ball.handleCollisionsBetween(balls: balls)
+        if Ball.isCollisionsBetween(balls: balls) {
+            if cradleView.time > collisionTime + 0.05 {  // limit frequency of playing sound to avoid crashing
+                DispatchQueue.global(qos: .userInitiated).async {
+                    self.playClickSound()
+                }
+                collisionTime = cradleView.time
+            }
+        }
         cradleView.time += Constants.frameTime  // this causes cradleView to re-draw
     }
     
@@ -104,5 +116,20 @@ class NewtonsCradleViewController: UIViewController {
             startSimulation()
         }
         isRunning = !isRunning
+    }
+
+    func playClickSound() {
+        guard let url = Bundle.main.url(forResource: "click", withExtension: "wav") else { return }
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
+            try AVAudioSession.sharedInstance().setActive(true)
+            
+            player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.wav.rawValue)
+            guard let player = player else { return }
+            player.play()
+            
+        } catch let error {
+            print(error.localizedDescription)
+        }
     }
 }
