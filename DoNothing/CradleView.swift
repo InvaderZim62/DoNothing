@@ -1,5 +1,5 @@
 //
-//  BallsView.swift
+//  CradleView.swift
 //  DoNothing
 //
 //  Created by Phil Stern on 6/4/19.
@@ -13,7 +13,7 @@ struct BallDims {
     static let stringLength = 200.0
 }
 
-class BallsView: UIView {
+class CradleView: UIView {
     
     var time = 0.0 { didSet { setNeedsDisplay() } }  // time just used to force drawing update
     var pivots = [CGPoint]()

@@ -19,7 +19,7 @@ class NewtonsCradleViewController: UIViewController {
 
     private var simulationTimer = Timer()
     
-    @IBOutlet weak var ballsView: BallsView!
+    @IBOutlet weak var ballsView: CradleView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
