@@ -18,20 +18,24 @@ struct CradleDims {
 class NewtonsCradleViewController: UIViewController {
 
     private var simulationTimer = Timer()
+    private var balls = [Ball]()
     
-    @IBOutlet weak var ballsView: CradleView!
+    @IBOutlet weak var cradleView: CradleView!
+    @IBOutlet weak var stopStartButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         for _ in 0..<CradleDims.numberOfBalls {
             let ball = Ball(angle: 0.rads)
-            ballsView.balls.append(ball)
+            balls.append(ball)
         }
-        ballsView.balls[0].angle = -30.rads
-        ballsView.balls[1].angle = -30.rads
-        ballsView.balls[2].angle = -30.rads
-//        ballsView.balls[CradleDims.numberOfBalls-1].angle = 30.rads
+        cradleView.setBalls(balls: balls)
+        
+        balls[0].angle = -30.rads
+        balls[1].angle = -30.rads
+        balls[2].angle = -30.rads
+//        balls[CradleDims.numberOfBalls-1].angle = 30.rads
 
         simulationTimer = Timer.scheduledTimer(timeInterval: CradleDims.frameTime, target: self,
                                                selector: #selector(updateSimulation),
@@ -39,15 +43,15 @@ class NewtonsCradleViewController: UIViewController {
     }
     
     @objc func updateSimulation() {
-        for ball in ballsView.balls {
+        for ball in balls {
             ball.simulate()
         }
-        Ball.handleCollisionsBetween(balls: ballsView.balls)
-        ballsView.time += CradleDims.frameTime
+        Ball.handleCollisionsBetween(balls: balls)
+        cradleView.time += CradleDims.frameTime
     }
     
-    @IBAction func reset(_ sender: UIButton) {
-        for ball in ballsView.balls {
+    @IBAction func stopStartPressed(_ sender: UIButton) {
+        for ball in balls {
             ball.reset()
         }
     }

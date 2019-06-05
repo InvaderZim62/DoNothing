@@ -27,23 +27,23 @@ class CradleView: UIView {
         computePivots()
     }
     
+    func setBalls(balls: [Ball]) {
+        self.balls = balls
+        for _ in 0..<balls.count {
+            let ballView = BallView(frame: CGRect(x: 0.0, y: 0.0, width: 2.0 * BallDims.radius, height: 2.0 * BallDims.radius))
+            ballViews.append(ballView)
+            addSubview(ballView)
+       }
+    }
+    
     private func computePivots() {
-        pivots.removeAll()
-        ballViews.removeAll()
-        // reconsider next line.  should add BallViews once (at higher level?) and just relocate them here.
-        subviews.filter( { $0.isKind(of: BallView.self) }).forEach( { $0.removeFromSuperview() })
-        
+        pivots.removeAll()        
         let leftPivot = Double(self.bounds.width) / 2.0 - Double(balls.count - 1) * BallDims.radius
         let barHeight = (Double(self.bounds.height) - BallDims.stringLength) / 2.0
         for i in 0..<balls.count {
             let pivot = CGPoint(x: leftPivot + Double(i) * 2.0 * BallDims.radius,
                                 y: barHeight)
             pivots.append(pivot)
-            
-            // re-add ball views
-            let ballView = BallView(frame: CGRect(x: 0.0, y: 0.0, width: 2.0 * BallDims.radius, height: 2.0 * BallDims.radius))
-            ballViews.append(ballView)
-            addSubview(ballView)
         }
         leftBarEnd = CGPoint(x: leftPivot - BallDims.radius, y: barHeight - 2.0)
         rightBarEnd = CGPoint(x: Double(pivots.last!.x) + BallDims.radius, y: barHeight - 2.0)
