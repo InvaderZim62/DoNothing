@@ -20,6 +20,7 @@ class CradleView: UIView {
     var leftBarEnd = CGPoint()
     var rightBarEnd = CGPoint()
     var balls = [Ball]()
+    var ballViews = [BallView]()
 
     // called if bounds change
     override func layoutSubviews() {
@@ -28,12 +29,21 @@ class CradleView: UIView {
     
     private func computePivots() {
         pivots.removeAll()
+        ballViews.removeAll()
+        // reconsider next line.  should add BallViews once (at higher level?) and just relocate them here.
+        subviews.filter( { $0.isKind(of: BallView.self) }).forEach( { $0.removeFromSuperview() })
+        
         let leftPivot = Double(self.bounds.width) / 2.0 - Double(balls.count - 1) * BallDims.radius
         let barHeight = (Double(self.bounds.height) - BallDims.stringLength) / 2.0
         for i in 0..<balls.count {
             let pivot = CGPoint(x: leftPivot + Double(i) * 2.0 * BallDims.radius,
                                 y: barHeight)
             pivots.append(pivot)
+            
+            // re-add ball views
+            let ballView = BallView(frame: CGRect(x: 0.0, y: 0.0, width: 2.0 * BallDims.radius, height: 2.0 * BallDims.radius))
+            ballViews.append(ballView)
+            addSubview(ballView)
         }
         leftBarEnd = CGPoint(x: leftPivot - BallDims.radius, y: barHeight - 2.0)
         rightBarEnd = CGPoint(x: Double(pivots.last!.x) + BallDims.radius, y: barHeight - 2.0)
@@ -44,6 +54,7 @@ class CradleView: UIView {
             // compute ball position
             let ballCenter = CGPoint(x: pivots[i].x + CGFloat(BallDims.stringLength * sin(balls[i].angle)),
                                      y: pivots[i].y + CGFloat(BallDims.stringLength * cos(balls[i].angle)))
+            ballViews[i].center = ballCenter
 
             // draw string
             UIColor.black.setStroke()
@@ -52,19 +63,6 @@ class CradleView: UIView {
             string.addLine(to: ballCenter)
             string.lineWidth = CGFloat(2)
             string.stroke()
-
-            // draw ball
-            let ball = UIBezierPath(arcCenter: ballCenter,
-                                       radius: CGFloat(BallDims.radius - 1),  // allow for line width
-                                       startAngle: 0.0,
-                                       endAngle: CGFloat(2.0 * Double.pi),
-                                       clockwise: true)
-            UIColor.black.setStroke()
-            UIColor.gray.setFill()
-            
-            ball.lineWidth = 2
-            ball.stroke()
-            ball.fill()
         }
         // draw top bar
         UIColor.black.setStroke()
