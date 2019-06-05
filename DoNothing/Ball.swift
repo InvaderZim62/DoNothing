@@ -10,7 +10,11 @@ import UIKit
 
 class Ball: NSObject {
     
-    var angle = 0.0  // radians
+    var angle = 0.0 {  // radians
+        didSet {
+            angle = max(min(angle, 30.rads), -30.rads)
+        }
+    }
     var rate = 0.0   // rad/sec
     var accel = 0.0  // rad/s2
     
@@ -35,12 +39,14 @@ class Ball: NSObject {
     static func swipedAt(index: Int, of balls: [Ball], to direction: UISwipeGestureRecognizer.Direction) {
         switch direction {
         case .left:
-            for i in 0...index {
-                balls[i].angle = -30.rads
+            balls[index].angle -= 30.rads
+            for i in stride(from: index - 1, through: 0, by: -1) {
+                if balls[i].angle > balls[i+1].angle { balls[i].angle = balls[i+1].angle }
             }
         case .right:
-            for i in index..<balls.count {
-                balls[i].angle = 30.rads
+            balls[index].angle += 30.rads
+            for i in index+1..<balls.count {
+                if balls[i].angle < balls[i-1].angle { balls[i].angle = balls[i-1].angle }
             }
         default:
             print("Ball.swipedAt) unknown swipe direction")
