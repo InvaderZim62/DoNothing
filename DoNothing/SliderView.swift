@@ -28,7 +28,6 @@ class SliderView: UIView {
     var firstTouchAngle = 0.0
     var barAngle = -1.05 { didSet { setNeedsDisplay() } }  // 0 to right, positive clockwise in radians
 
-//    lazy var viewCenter = convert(center, from: superview)
     lazy var centerX = Double(self.center.x)
     lazy var centerY = Double(self.center.y)
     
