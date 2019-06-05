@@ -26,20 +26,31 @@ class Ball: NSObject {
     
     static func isCollisionsBetween(balls: [Ball]) -> Bool {
         var isCollision = false
-        for i in 0..<balls.count {
-            if i < balls.count-1 && balls[i].rate > 0.0 && balls[i].angle >= balls[i+1].angle {
-                if abs(balls[i].rate - balls[i+1].rate) > 2.0 { isCollision = true }
+        for _ in 0..<balls.count-1 {  // make n-1 passes each time, to sort everything out
+            for i in 0..<balls.count {
+                // if moving right and overlapping next ball, contact occurred
+                if i < balls.count-1 && balls[i].rate > 0.0 && balls[i].angle > balls[i+1].angle {
+                    if abs(balls[i].rate - balls[i+1].rate) > 0.8 { isCollision = true }
+                    balls[i].angle = balls[i+1].angle  // prevent overlap
+                    Ball.swap(a: &balls[i].rate, b: &balls[i+1].rate)  // swap speeds per conservation of momuntum
+                } else if i > 0 && balls[i].rate < 0.0 && balls[i].angle < balls[i-1].angle {
+                    if abs(balls[i].rate - balls[i-1].rate) > 2.0 { isCollision = true }
+                    balls[i].angle = balls[i-1].angle
+                    Ball.swap(a: &balls[i].rate, b: &balls[i-1].rate)
+                }
+            }
+        }
+        // if ball to the right is close in speed and angle, match it exactly
+        for i in 0..<balls.count-1 {
+            if abs(balls[i].angle - balls[i+1].angle) < 0.1 &&
+                abs(balls[i].rate - balls[i+1].rate) < 0.4 {
                 balls[i].angle = balls[i+1].angle
-                Ball.swap(a: &balls[i].rate, b: &balls[i+1].rate)
-            } else if i > 0 && balls[i].rate < 0.0 && balls[i].angle <= balls[i-1].angle {
-                if abs(balls[i].rate - balls[i-1].rate) > 2.0 { isCollision = true }
-                balls[i].angle = balls[i-1].angle
-                Ball.swap(a: &balls[i].rate, b: &balls[i-1].rate)
+                balls[i].rate = balls[i+1].rate
             }
         }
         return isCollision
     }
-    
+
     static func swipedAt(index: Int, of balls: [Ball], to direction: UISwipeGestureRecognizer.Direction) {
         switch direction {
         case .left:
