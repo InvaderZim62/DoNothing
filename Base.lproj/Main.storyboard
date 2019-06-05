@@ -206,7 +206,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="R85-I8-XhG"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="hVm-2J-oUi"/>
+                    <tabBarItem key="tabBarItem" title="Balls" id="hVm-2J-oUi"/>
                     <connections>
                         <outlet property="cradleView" destination="02I-BK-Nkq" id="Ecm-xY-gi2"/>
                         <outlet property="stopStartButton" destination="ECS-lA-ddE" id="8hf-Vw-t3W"/>

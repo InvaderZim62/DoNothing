@@ -20,6 +20,12 @@ class NewtonsCradleViewController: UIViewController {
     private var simulationTimer = Timer()
     private var balls = [Ball]()
     
+    private var isRunning = true {
+        didSet {
+            stopStartButton.setTitle(isRunning ? "Stop" : "Start", for: .normal)
+        }
+    }
+    
     @IBOutlet weak var cradleView: CradleView!
     @IBOutlet weak var stopStartButton: UIButton!
     
@@ -36,23 +42,35 @@ class NewtonsCradleViewController: UIViewController {
         balls[1].angle = -30.rads
         balls[2].angle = -30.rads
 //        balls[CradleDims.numberOfBalls-1].angle = 30.rads
+        
+        startSimulation()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        simulationTimer.invalidate()
+    }
 
+    private func startSimulation() {
         simulationTimer = Timer.scheduledTimer(timeInterval: CradleDims.frameTime, target: self,
                                                selector: #selector(updateSimulation),
                                                userInfo: nil, repeats: true)
     }
     
     @objc func updateSimulation() {
-        for ball in balls {
-            ball.simulate()
-        }
+        _ = balls.map { $0.simulate() }
         Ball.handleCollisionsBetween(balls: balls)
         cradleView.time += CradleDims.frameTime
     }
     
     @IBAction func stopStartPressed(_ sender: UIButton) {
-        for ball in balls {
-            ball.reset()
+        if isRunning {
+            _ = balls.map { $0.stop() }
+            simulationTimer.invalidate()
+            updateSimulation()
+        } else {
+            balls[0].angle = -30.rads
+            startSimulation()
         }
+        isRunning = !isRunning
     }
 }

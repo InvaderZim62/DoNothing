@@ -36,7 +36,7 @@ class Ball: NSObject {
         }
     }
     
-    func reset() {
+    func stop() {
         angle = 0.0
         rate = 0.0
         accel = 0.0
