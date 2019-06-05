@@ -16,28 +16,20 @@ struct BallDims {
 class CradleView: UIView {
     
     var time = 0.0 { didSet { setNeedsDisplay() } }  // time just used to force drawing update
-    var pivots = [CGPoint]()
-    var leftBarEnd = CGPoint()
-    var rightBarEnd = CGPoint()
     var balls = [Ball]()
     var ballViews = [BallView]()
 
-    // called if bounds change
+    private var pivots = [CGPoint]()
+    private var leftBarEnd = CGPoint()
+    private var rightBarEnd = CGPoint()
+
+    // called when first on screen or if bounds change
     override func layoutSubviews() {
         computePivots()
     }
-    
-    func setBalls(balls: [Ball]) {
-        self.balls = balls
-        for _ in 0..<balls.count {
-            let ballView = BallView(frame: CGRect(x: 0.0, y: 0.0, width: 2.0 * BallDims.radius, height: 2.0 * BallDims.radius))
-            ballViews.append(ballView)
-            addSubview(ballView)
-       }
-    }
-    
+
     private func computePivots() {
-        pivots.removeAll()        
+        pivots.removeAll()
         let leftPivot = Double(self.bounds.width) / 2.0 - Double(balls.count - 1) * BallDims.radius
         let barHeight = (Double(self.bounds.height) - BallDims.stringLength) / 2.0
         for i in 0..<balls.count {

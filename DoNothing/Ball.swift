@@ -36,6 +36,21 @@ class Ball: NSObject {
         }
     }
     
+    static func swipedAt(index: Int, of balls: [Ball], to direction: UISwipeGestureRecognizer.Direction) {
+        switch direction {
+        case .left:
+            for i in 0...index {
+                balls[i].angle = -30.rads
+            }
+        case .right:
+            for i in index..<balls.count {
+                balls[i].angle = 30.rads
+            }
+        default:
+            print("Ball.swipedAt) unknown swipe direction")
+        }
+    }
+    
     func stop() {
         angle = 0.0
         rate = 0.0

@@ -36,18 +36,43 @@ class NewtonsCradleViewController: UIViewController {
             let ball = Ball(angle: 0.rads)
             balls.append(ball)
         }
-        cradleView.setBalls(balls: balls)
+        updateViewWithModel()
         
-        balls[0].angle = -30.rads
-        balls[1].angle = -30.rads
-        balls[2].angle = -30.rads
-//        balls[CradleDims.numberOfBalls-1].angle = 30.rads
-        
+        balls[0].angle = -30.rads  // start with one ball to left
         startSimulation()
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         simulationTimer.invalidate()
+    }
+
+    private func updateViewWithModel() {
+        cradleView.ballViews.removeAll()
+        cradleView.subviews.filter( { $0.isKind(of: BallView.self) }).forEach( { $0.removeFromSuperview() })
+        
+        cradleView.balls = balls
+        for _ in 0..<balls.count {
+            let ballView = BallView(frame: CGRect(x: 0.0, y: 0.0, width: 2.0 * BallDims.radius, height: 2.0 * BallDims.radius))
+            
+            // add two swipe gestures to ballView
+            let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(ballSwiped))
+            swipeLeft.direction = .left
+            ballView.addGestureRecognizer(swipeLeft)
+            
+            let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(ballSwiped))
+            swipeRight.direction = .right
+            ballView.addGestureRecognizer(swipeRight)
+            
+            cradleView.ballViews.append(ballView)
+            cradleView.addSubview(ballView)
+        }
+    }
+    
+    @objc private func ballSwiped(recognizer: UISwipeGestureRecognizer) {
+        if let ballView = recognizer.view as? BallView, let index = cradleView.ballViews.firstIndex(of: ballView) {
+            Ball.swipedAt(index: index, of: cradleView.balls, to: recognizer.direction)
+            updateSimulation()
+        }
     }
 
     private func startSimulation() {
@@ -68,7 +93,6 @@ class NewtonsCradleViewController: UIViewController {
             simulationTimer.invalidate()
             updateSimulation()
         } else {
-            balls[0].angle = -30.rads
             startSimulation()
         }
         isRunning = !isRunning
