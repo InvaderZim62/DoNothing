@@ -179,7 +179,22 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="02I-BK-Nkq" customClass="BallsView" customModule="DoNothing" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="20" width="375" height="598"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ECS-lA-ddE">
+                                        <rect key="frame" x="160" y="8" width="55" height="39"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                        <state key="normal" title="Reset"/>
+                                        <connections>
+                                            <action selector="pressedButton:" destination="uEz-ll-VHl" eventType="touchUpInside" id="NoS-GZ-hVK"/>
+                                            <action selector="reset:" destination="Zp7-gA-srK" eventType="touchUpInside" id="Lqu-7A-6PL"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="ECS-lA-ddE" firstAttribute="centerX" secondItem="02I-BK-Nkq" secondAttribute="centerX" id="wYF-rI-6Ge"/>
+                                    <constraint firstItem="ECS-lA-ddE" firstAttribute="top" secondItem="02I-BK-Nkq" secondAttribute="top" constant="8" id="yoT-Hr-du4"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="0.89411764705882346" green="0.92941176470588238" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

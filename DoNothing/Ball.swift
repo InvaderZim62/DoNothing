@@ -18,9 +18,9 @@ class Ball: NSObject {
         self.angle = angle
     }
     
-    func simulate() {
+    func simulate() {  // rectangular integration
         accel = -CradleDims.G / CradleDims.length * sin(angle)
-        rate += accel * CradleDims.frameTime  // rectangular integration
+        rate += accel * CradleDims.frameTime
         angle += rate * CradleDims.frameTime
     }
     
@@ -28,15 +28,23 @@ class Ball: NSObject {
         for i in 0..<balls.count {
             if i < balls.count-1 && balls[i].rate > 0.0 && balls[i].angle >= balls[i+1].angle {
                 balls[i].angle = balls[i+1].angle
-                let rate = balls[i].rate
-                balls[i].rate = balls[i+1].rate
-                balls[i+1].rate = rate
+                Ball.swap(a: &balls[i].rate, b: &balls[i+1].rate)
             } else if i > 0 && balls[i].rate < 0.0 && balls[i].angle <= balls[i-1].angle {
                 balls[i].angle = balls[i-1].angle
-                let rate = balls[i].rate
-                balls[i].rate = balls[i-1].rate
-                balls[i-1].rate = rate
+                Ball.swap(a: &balls[i].rate, b: &balls[i-1].rate)
             }
         }
+    }
+    
+    func reset() {
+        angle = 0.0
+        rate = 0.0
+        accel = 0.0
+    }
+    
+    static func swap(a: inout Double, b: inout Double) {
+        let temp = a
+        a = b
+        b = temp
     }
 }

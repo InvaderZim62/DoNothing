@@ -30,7 +30,8 @@ class NewtonsCradleViewController: UIViewController {
         }
         ballsView.balls[0].angle = -30.rads
         ballsView.balls[1].angle = -30.rads
-        ballsView.balls[CradleDims.numberOfBalls-1].angle = 30.rads
+        ballsView.balls[2].angle = -30.rads
+//        ballsView.balls[CradleDims.numberOfBalls-1].angle = 30.rads
 
         simulationTimer = Timer.scheduledTimer(timeInterval: CradleDims.frameTime, target: self,
                                                selector: #selector(updateSimulation),
@@ -43,5 +44,11 @@ class NewtonsCradleViewController: UIViewController {
         }
         Ball.handleCollisionsBetween(balls: ballsView.balls)
         ballsView.time += CradleDims.frameTime
+    }
+    
+    @IBAction func reset(_ sender: UIButton) {
+        for ball in ballsView.balls {
+            ball.reset()
+        }
     }
 }
