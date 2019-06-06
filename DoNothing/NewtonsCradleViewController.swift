@@ -23,7 +23,7 @@ class NewtonsCradleViewController: UIViewController {
     private var simulationTimer = Timer()
     private var balls = [Ball]()
     private var player: AVAudioPlayer?
-    private var collisionTime = 0.0
+    private var collisionTime = 0.0  // used to prevent too many sounds from playing at the same time
 
     private var isRunning = true {
         didSet {
@@ -41,7 +41,7 @@ class NewtonsCradleViewController: UIViewController {
             let ball = Ball()
             balls.append(ball)
         }
-        updateViewWithModel()
+        updateViewFromModel()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -57,10 +57,8 @@ class NewtonsCradleViewController: UIViewController {
         simulationTimer.invalidate()
     }
 
-    private func updateViewWithModel() {
-        cradleView.ballViews.removeAll()
-        cradleView.subviews.filter( { $0.isKind(of: BallView.self) }).forEach( { $0.removeFromSuperview() })
-        
+    // set cradleView balls and ballViews (with swipe gestures)
+    private func updateViewFromModel() {
         cradleView.balls = balls
         for _ in 0..<balls.count {
             let ballView = BallView(frame: CGRect(x: 0.0, y: 0.0, width: 2.0 * Constants.ballRadius,
