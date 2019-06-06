@@ -44,6 +44,7 @@ class NewtonsCradleViewController: UIViewController {
         updateViewFromModel()
     }
     
+    // called first time and each time returing to this tab (memory retained when leaving tab)
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -54,10 +55,10 @@ class NewtonsCradleViewController: UIViewController {
     }
 
     override func viewWillDisappear(_ animated: Bool) {
-        simulationTimer.invalidate()
+        simulationTimer.invalidate()  // stop timer
     }
 
-    // set cradleView balls and ballViews (with swipe gestures)
+    // setup cradleView balls and ballViews (with swipe gestures)
     private func updateViewFromModel() {
         cradleView.balls = balls
         for _ in 0..<balls.count {
@@ -78,6 +79,7 @@ class NewtonsCradleViewController: UIViewController {
     }
     
     @objc private func ballSwiped(recognizer: UISwipeGestureRecognizer) {
+        // determine index of swiped ballView
         if let ballView = recognizer.view as? BallView, let index = cradleView.ballViews.firstIndex(of: ballView) {
             Ball.swipedAt(index: index, of: cradleView.balls, to: recognizer.direction)
             cradleView.time += Constants.frameTime  // this causes cradleView to re-draw
@@ -92,11 +94,13 @@ class NewtonsCradleViewController: UIViewController {
                                                userInfo: nil, repeats: true)
     }
     
+    // execute one simulation step for each ball
+    // make click sound for significant collisions
     @objc func updateSimulation() {
-        _ = balls.map { $0.simulate() }  // execute one simulation step for each ball
-        if isRunning && Ball.isCollisionsBetween(balls: balls) {
-            if cradleView.time > collisionTime + 0.05 {  // limit frequency of playing sound to avoid crashing
-                DispatchQueue.global(qos: .userInitiated).async {
+        _ = balls.map { $0.simulate() }
+        if isRunning && Ball.isCollisionBetween(balls) {
+            if cradleView.time > collisionTime + 0.05 {  // limit time for starting new sound, to avoid crashing
+                DispatchQueue.global(qos: .userInitiated).async {  // use background task, to avoid slowing simulation
                     self.playClickSound()
                 }
                 collisionTime = cradleView.time
@@ -107,9 +111,9 @@ class NewtonsCradleViewController: UIViewController {
     
     @IBAction func stopStartPressed(_ sender: UIButton) {
         if isRunning {
-            _ = balls.map { $0.stop() }  // tell each ball to stop
+            _ = balls.map { $0.stop() }  // turn off physics
         } else {
-            _ = balls.map { $0.go() }  // tell each ball to go
+            _ = balls.map { $0.go() }  // turn on physics
         }
         isRunning = !isRunning
     }

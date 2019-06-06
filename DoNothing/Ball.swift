@@ -8,21 +8,29 @@
 
 import UIKit
 
+struct BallConsts {
+    static let collisionThreshold = 0.8  // rad/sec, a click sound occurs for collisions above this threshold
+    static let stickyAngle = 0.1         // rad, below this relative angle and rate, the balls will stick together
+    static let stickyRate = 0.1          // rad/sec
+    static let maxAngle = 30.rads        // rad, max angle during setup and simulation
+}
+
 class Ball: NSObject {
     
+    var accel = 0.0    // rad/s2
+    var rate = 0.0     // rad/sec
     var angle = 0.0 {  // radians
         didSet {
-            angle = max(min(angle, 30.rads), -30.rads)
+            angle = max(min(angle, BallConsts.maxAngle), -BallConsts.maxAngle)  // limit angle
         }
     }
-    var rate = 0.0   // rad/sec
-    var accel = 0.0  // rad/s2
-    
+
     private var isStopping = false
     private var isHolding = false
     
-    func simulate() {  // rectangular integration
+    func simulate() {
         if isStopping {
+            // bring to reat
             accel = 0.0
             if angle > 0.01 {
                 rate = -1.0
@@ -36,6 +44,7 @@ class Ball: NSObject {
             }
             angle += rate * Constants.frameTime
         } else if !isHolding {
+            // inegrate accel to get rate and angle (rectangular rule integration)
             accel = -Constants.G / Constants.pendulumLength * sin(angle)
             rate += accel * Constants.frameTime
             angle += rate * Constants.frameTime
@@ -55,56 +64,58 @@ class Ball: NSObject {
     func reset() {
         isStopping = false
         isHolding = false
-        angle = 0.0
-        rate = 0.0
         accel = 0.0
+        rate = 0.0
+        angle = 0.0
     }
 
-    static func isCollisionsBetween(balls: [Ball]) -> Bool {
+    static func isCollisionBetween(_ balls: [Ball]) -> Bool {
         var isCollision = false
-        for _ in 0..<balls.count-1 {  // make n-1 passes each time, to sort everything out
+        for _ in 0..<balls.count - 1 {  // make n-1 passes, to propagate changes down the line
             for i in 0..<balls.count {
-                // if moving right and overlapping next ball, contact occurred
-                if i < balls.count-1 && balls[i].rate > 0.0 && balls[i].angle > balls[i+1].angle {
-                    if abs(balls[i].rate - balls[i+1].rate) > 0.8 { isCollision = true }
+                if i < balls.count - 1 && balls[i].rate > 0.0 && balls[i].angle > balls[i + 1].angle {
+                    // if moving right and overlapping next ball, contact occurred
+                    if abs(balls[i].rate - balls[i + 1].rate) > BallConsts.collisionThreshold { isCollision = true }
                     balls[i].angle = balls[i+1].angle  // prevent overlap
-                    Ball.swap(a: &balls[i].rate, b: &balls[i+1].rate)  // swap speeds per conservation of momuntum
-                } else if i > 0 && balls[i].rate < 0.0 && balls[i].angle < balls[i-1].angle {
-                    if abs(balls[i].rate - balls[i-1].rate) > 2.0 { isCollision = true }
-                    balls[i].angle = balls[i-1].angle
-                    Ball.swap(a: &balls[i].rate, b: &balls[i-1].rate)
+                    Ball.swap(&balls[i].rate, &balls[i+1].rate)  // swap speeds per conservation of momuntum
+                } else if i > 0 && balls[i].rate < 0.0 && balls[i].angle < balls[i - 1].angle {
+                    // if moving left and overlapping previous ball, contact occurred
+                    if abs(balls[i].rate - balls[i - 1].rate) > BallConsts.collisionThreshold { isCollision = true }
+                    balls[i].angle = balls[i - 1].angle
+                    Ball.swap(&balls[i].rate, &balls[i - 1].rate)
                 }
             }
         }
         // if ball to the right is close in speed and angle, match it exactly
         for i in 0..<balls.count-1 {
-            if abs(balls[i].angle - balls[i+1].angle) < 0.1 &&
-                abs(balls[i].rate - balls[i+1].rate) < 0.4 {
-                balls[i].angle = balls[i+1].angle
-                balls[i].rate = balls[i+1].rate
+            if abs(balls[i].angle - balls[i + 1].angle) < BallConsts.stickyAngle &&
+                abs(balls[i].rate - balls[i + 1].rate) < BallConsts.stickyRate {
+                balls[i].rate = balls[i + 1].rate
+                balls[i].angle = balls[i + 1].angle
             }
         }
         return isCollision
     }
 
+    // increment swiped balls maxAngle in the direction of swipe, including any in their way
     static func swipedAt(index: Int, of balls: [Ball], to direction: UISwipeGestureRecognizer.Direction) {
         switch direction {
         case .left:
-            balls[index].angle -= 30.rads
+            balls[index].angle -= BallConsts.maxAngle
             for i in stride(from: index - 1, through: 0, by: -1) {
-                if balls[i].angle > balls[i+1].angle { balls[i].angle = balls[i+1].angle }
+                if balls[i].angle > balls[i + 1].angle { balls[i].angle = balls[i + 1].angle }
             }
         case .right:
-            balls[index].angle += 30.rads
+            balls[index].angle += BallConsts.maxAngle
             for i in index+1..<balls.count {
-                if balls[i].angle < balls[i-1].angle { balls[i].angle = balls[i-1].angle }
+                if balls[i].angle < balls[i - 1].angle { balls[i].angle = balls[i - 1].angle }
             }
         default:
             print("Ball.swipedAt) unknown swipe direction")
         }
     }
     
-    static func swap(a: inout Double, b: inout Double) {
+    static func swap(_ a: inout Double, _ b: inout Double) {
         let temp = a
         a = b
         b = temp
