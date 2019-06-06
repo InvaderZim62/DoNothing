@@ -48,7 +48,7 @@ class NewtonsCradleViewController: UIViewController {
         super.viewWillAppear(animated)
         
         isRunning = true
-        _ = balls.map { $0.stop() }  // set each ball to down and stopped
+        _ = balls.map { $0.reset() }  // set each ball to down and stopped
         balls[0].angle = -30.rads  // start with one ball to left
         startSimulation()
     }
@@ -96,7 +96,7 @@ class NewtonsCradleViewController: UIViewController {
     
     @objc func updateSimulation() {
         _ = balls.map { $0.simulate() }  // execute one simulation step for each ball
-        if Ball.isCollisionsBetween(balls: balls) {
+        if isRunning && Ball.isCollisionsBetween(balls: balls) {
             if cradleView.time > collisionTime + 0.05 {  // limit frequency of playing sound to avoid crashing
                 DispatchQueue.global(qos: .userInitiated).async {
                     self.playClickSound()
@@ -109,11 +109,9 @@ class NewtonsCradleViewController: UIViewController {
     
     @IBAction func stopStartPressed(_ sender: UIButton) {
         if isRunning {
-            _ = balls.map { $0.stop() }  // reset each ball to down and stopped
-            simulationTimer.invalidate()
-            cradleView.time = 0.0  // this causes cradleView to re-draw
+            _ = balls.map { $0.stop() }  // tell each ball to stop
         } else {
-            startSimulation()
+            _ = balls.map { $0.go() }  // tell each ball to go
         }
         isRunning = !isRunning
     }

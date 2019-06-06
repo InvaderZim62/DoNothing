@@ -18,12 +18,48 @@ class Ball: NSObject {
     var rate = 0.0   // rad/sec
     var accel = 0.0  // rad/s2
     
+    private var isStopping = false
+    private var isHolding = false
+    
     func simulate() {  // rectangular integration
-        accel = -Constants.G / Constants.pendulumLength * sin(angle)
-        rate += accel * Constants.frameTime
-        angle += rate * Constants.frameTime
+        if isStopping {
+            accel = 0.0
+            if angle > 0.01 {
+                rate = -1.0
+            } else if angle < -0.01 {
+                rate = 1.0
+            } else {
+                rate = 0.0
+                angle = 0.0
+                isStopping = false
+                isHolding = true
+            }
+            angle += rate * Constants.frameTime
+        } else if !isHolding {
+            accel = -Constants.G / Constants.pendulumLength * sin(angle)
+            rate += accel * Constants.frameTime
+            angle += rate * Constants.frameTime
+        }
     }
     
+    func stop() {
+        isStopping = true
+        isHolding = false
+    }
+    
+    func go() {
+        isStopping = false
+        isHolding = false
+    }
+    
+    func reset() {
+        isStopping = false
+        isHolding = false
+        angle = 0.0
+        rate = 0.0
+        accel = 0.0
+    }
+
     static func isCollisionsBetween(balls: [Ball]) -> Bool {
         var isCollision = false
         for _ in 0..<balls.count-1 {  // make n-1 passes each time, to sort everything out
@@ -66,12 +102,6 @@ class Ball: NSObject {
         default:
             print("Ball.swipedAt) unknown swipe direction")
         }
-    }
-    
-    func stop() {
-        angle = 0.0
-        rate = 0.0
-        accel = 0.0
     }
     
     static func swap(a: inout Double, b: inout Double) {
