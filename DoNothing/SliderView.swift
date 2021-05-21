@@ -5,10 +5,12 @@
 //  Created by Phil Stern on 5/31/19.
 //  Copyright © 2019 Phil Stern. All rights reserved.
 //
+//  Base class for TwoSliderView, ThreeSliderView, and FourSliderView
+//
 
 import UIKit
 
-protocol SliderViewDelegate: class {
+protocol SliderViewDelegate: AnyObject {
     func getHandleState() -> Bool  // get handle state (hide/show) from DoNothingViewController
 }
 

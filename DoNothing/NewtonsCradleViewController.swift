@@ -42,6 +42,7 @@ class NewtonsCradleViewController: UIViewController {
             balls.append(ball)
         }
         updateViewFromModel()
+        setupPlayer()
     }
     
     // called first time and each time returing to this tab (memory retained when leaving tab)
@@ -101,7 +102,7 @@ class NewtonsCradleViewController: UIViewController {
         if isRunning && Ball.isCollisionBetween(balls) {
             if cradleView.time > collisionTime + 0.05 {  // limit time for starting new sound, to avoid crashing
                 DispatchQueue.global(qos: .userInitiated).async {  // use background task, to avoid slowing simulation
-                    self.playClickSound()
+                    self.player?.play()
                 }
                 collisionTime = cradleView.time
             }
@@ -118,15 +119,13 @@ class NewtonsCradleViewController: UIViewController {
         isRunning = !isRunning
     }
 
-    func playClickSound() {
+    func setupPlayer() {
         guard let url = Bundle.main.url(forResource: "click", withExtension: "wav") else { return }
         do {
             try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
             try AVAudioSession.sharedInstance().setActive(true)
             
             player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.wav.rawValue)
-            guard let player = player else { return }
-            player.play()
             
         } catch let error {
             print(error.localizedDescription)
