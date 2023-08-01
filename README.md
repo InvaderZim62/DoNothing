@@ -5,7 +5,8 @@ Trammel of Archimedes), and a Newton's cradle.  I use a tab-view controller to s
 
 My cousin had a do-nothing machine with two sliders.  I was facinated with it as a kid, and decided
 to make it into an app.  While creating the app, I realized there's no limit to the number of sliders
-it can have, so I added ones with three and four sliders.
+it can have, so I added versions with three and four sliders.  The little blue circle represents the
+knob you would use to turn the crank by hand.
 
 ![2 Sliders](https://github.com/InvaderZim62/DoNothing/assets/34785252/00e8a4db-a312-4949-bf62-0a8e9e8d6112)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
