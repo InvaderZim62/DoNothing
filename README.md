@@ -7,6 +7,8 @@ My cousin had a do-nothing machine with two sliders.  I was facinated with it as
 to make it into an app.  While creating the app, I realized there's no limit to the number of sliders
 it can have, so I added ones with three and four sliders.
 
+![2 Sliders](https://github.com/InvaderZim62/DoNothing/assets/34785252/00e8a4db-a312-4949-bf62-0a8e9e8d6112)
+
 ![2 Sliders](https://github.com/InvaderZim62/DoNothing/assets/34785252/9fc6a89e-a5fd-4937-8300-05f8057c7883)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 ![3 Sliders](https://github.com/InvaderZim62/DoNothing/assets/34785252/e88c01f1-9201-44d8-be4e-d355713903fd)
