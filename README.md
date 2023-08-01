@@ -8,11 +8,9 @@ to make it into an app.  While creating the app, I realized there's no limit to 
 it can have, so I added ones with three and four sliders.
 
 ![2 Sliders](https://github.com/InvaderZim62/DoNothing/assets/34785252/00e8a4db-a312-4949-bf62-0a8e9e8d6112)
-
-![2 Sliders](https://github.com/InvaderZim62/DoNothing/assets/34785252/9fc6a89e-a5fd-4937-8300-05f8057c7883)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-![3 Sliders](https://github.com/InvaderZim62/DoNothing/assets/34785252/e88c01f1-9201-44d8-be4e-d355713903fd)
+![3 Sliders](https://github.com/InvaderZim62/DoNothing/assets/34785252/d9c978c0-4bb3-43bd-bc1c-1d53823c9ae6)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-![4 Sliders](https://github.com/InvaderZim62/DoNothing/assets/34785252/33a233a2-09f3-47fb-8f4f-a0c268f216a0)
+![4 Sliders](https://github.com/InvaderZim62/DoNothing/assets/34785252/2d79e391-8888-4a95-b866-0955ad3a42f0)
 
 ![5 Balls](https://github.com/InvaderZim62/DoNothing/assets/34785252/cad28fab-cf9d-4455-adb6-67b0d771a7ca)
