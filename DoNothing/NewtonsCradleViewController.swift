@@ -45,7 +45,7 @@ class NewtonsCradleViewController: UIViewController {
         setupPlayer()
     }
     
-    // called first time and each time returing to this tab (memory retained when leaving tab)
+    // called first time and each time returning to this tab (memory retained when leaving tab)
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
