@@ -3,7 +3,7 @@
 I combined two projects into one: three different versions of a do-noting machine (also known as a
 Trammel of Archimedes), and a Newton's cradle.  I use a tab-view controller to switch between them.
 
-My cousin had a do-nothing machine with two sliders.  I was facinated with it as a kid, and decided
+My cousin had a do-nothing machine with two sliders.  I was fascinated with it as a kid, and decided
 to make it into an app.  While creating the app, I realized there's no limit to the number of sliders
 it can have, so I added versions with three and four sliders.  The little blue circle represents the
 knob you would use to turn the crank by hand.
